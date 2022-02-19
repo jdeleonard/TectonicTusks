@@ -1,8 +1,3 @@
-## Welcome to GitHub Pages
-
-You can use the [editor on GitHub](https://github.com/jdeleonard/TectonicTusks/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-
 ## [Problem Statement](https://github.com/jdeleonard/TectonicTusks/edit/gh-pages/problem.md)
 ## [User Stories](https://github.com/jdeleonard/TectonicTusks/edit/gh-pages/userstories.md)
 ## [Requirements](https://github.com/jdeleonard/TectonicTusks/edit/gh-pages/requirements.md)
