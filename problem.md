@@ -9,12 +9,12 @@ Product	Amount	Unit
 The customer interface will allow people to place their food orders. The ineterface will appear to be a ordering screen to the customer, but in the background will update current inventory, track sales, and deliver the food order to the restaurant. This should allow for real time tracking of inventory and sales which would be given to our data base to keep up to date information. This interface could be strickly image based, or standard text menu. Not yet decided.
 
 <strong>Users and Expectations:</strong><br/>
-Users:
-Restaurant Owners
-Restaurant Patrons
-People working with Restaurant Inventory
-Abilities:
-Ordering Meals
-Up to Date Inventory
-Expected Food Use
-Acctual Food Use tracking
+Users:<br/>
+Restaurant Owners<br/>
+Restaurant Patrons<br/>
+People working with Restaurant Inventory<br/>
+Abilities:<br/>
+Ordering Meals<br/>
+Up to Date Inventory<br/>
+Expected Food Use<br/>
+Acctual Food Use tracking<br/>
