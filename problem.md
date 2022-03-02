@@ -23,6 +23,6 @@ Abilities:<br/>
 Ordering Meals<br/>
 Up to Date Inventory<br/>
 Expected Food Use<br/>
-Acctual Food Use tracking<br/>
+Actual Food Use tracking<br/>
 Inventory Modifications<br/>
 Expiration Tracking<br/>
