@@ -1,4 +1,5 @@
 import wx
+import wx.grid as grid
 import sqlite3
 
 
@@ -29,17 +30,46 @@ def removeDB(id):
 	connection.commit()
 
 
+def getName(id):
+	connection = sqlite3.connect("test.db")
+	if (connection):
+		cursor = connection.cursor()
+		query = "SELECT first, last FROM people WHERE id={}".format(id)
+		cursor.execute(query)
+		result = cursor.fetchone()
+		return result
+	
+	else:
+		print("Database Connection Error")
+
+
 class MyFrame(wx.Frame):
 	def __init__(self):
 
-		super().__init__(parent=None, title="Hello World")
+		super().__init__(parent=None, title="Python Window")
 		panel = wx.Panel(self)
 
-		self.first_ctrl = wx.TextCtrl(panel, pos=(5,5))
-		self.last_ctrl = wx.TextCtrl(panel, pos=(5, 35))
+		my_sizer = wx.BoxSizer(wx.VERTICAL)
 
-		my_btn = wx.Button(panel, label='Insert Person', pos=(5,55))
+		self.first_ctrl = wx.TextCtrl(panel)
+		self.last_ctrl = wx.TextCtrl(panel)
+		self.id_ctrl = wx.TextCtrl(panel)
+		
+
+		my_btn = wx.Button(panel, label='Insert Person')
 		my_btn.Bind(wx.EVT_BUTTON, self.test_press)
+
+		get_btn = wx.Button(panel, label="Get Person")
+		get_btn.Bind(wx.EVT_BUTTON, self.get_press)
+
+
+		my_sizer.Add(self.first_ctrl, 0, wx.ALL | wx.LEFT, 5)
+		my_sizer.Add(self.last_ctrl, 0, wx.ALL | wx.RIGHT, 5)
+		my_sizer.Add(my_btn, 0, wx.ALL | wx.LEFT, 5)
+		my_sizer.Add(self.id_ctrl, 0, wx.ALL | wx.CENTER, 5)
+		my_sizer.Add(get_btn, 0, wx.ALL | wx.CENTER, 5)
+		
+		panel.SetSizer(my_sizer)
 
 		self.Show()
 
@@ -53,6 +83,14 @@ class MyFrame(wx.Frame):
 			insertDB(first_name, last_name)
 
 			
+	def get_press(self, event):
+		val = self.id_ctrl.GetValue()
+		print(getName(val))
+
+
+
+
+
 
 
 if __name__ == '__main__':
@@ -61,4 +99,6 @@ if __name__ == '__main__':
 	frame = MyFrame()
 	app.MainLoop()
 
+
+	
 
