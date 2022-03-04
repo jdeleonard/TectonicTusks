@@ -5,6 +5,7 @@ class MyFrame(wx.Frame):
     def __init__(self, parent, title):
         super(MyFrame, self).__init__(parent, title=title, size=(400, 300))
 
+
         self.panel = MyPanel(self)
         self.MyGrid = New_Grid(self, numRows=2, numCols=5)
         mainSizer = wx.BoxSizer(wx.VERTICAL)
