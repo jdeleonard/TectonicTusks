@@ -5,6 +5,10 @@ The general purpose of this project is to create a desktop application that will
 For the inventory management portion of the project, this will include an interface that will list each item and how much of each the restaurant has. In terms of how this interface looks, the general idea is a simple table that will have the name of one item and how much of that product the restaurant has on-hand in each row along with the items expiration dates. Something along the lines of:  
 Product 	Amount  	Unit    Expiration
 
+| Product | Amount | Unit | Expiration |
+| ------- | ------ | ---- | ---------- |
+| Lettuce | 30     | lbs  | 04/01/2022 |
+
 <strong>Customer Interface</strong> <br/>
 The customer interface will allow people to place their food orders. The interface will appear to be an ordering screen to the customer, but in the background will update current inventory, track sales, and deliver the food order to the restaurant. This should allow for real time tracking of inventory and sales which would be given to our database to keep up to date information. This interface could be strickly image based, or standard text menu. Not yet decided.
 
