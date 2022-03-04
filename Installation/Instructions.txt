@@ -1,0 +1,26 @@
+Windows:
+
+1) Install the .exe located in this directory.
+  a) To make your life easier, choose "Custom Install" and mark the "Add to PATH"
+
+2) Open PowerShell can install wxPython with the command:
+     pip install wxpython
+
+3) Run the .py program script in Powershell with the command:
+     python .\program_name.py
+
+
+Mac:
+
+1) Make sure you have XCode installed on your Mac Computer
+
+2) Open up Terminal and make sure your python3 version is Python 3.9 with the command:
+     python3 --version
+
+3) Install wxPython with the terminal command:
+     pip install wxpython
+
+4) Run the program with the terminal command:
+     python3 ./program_name.py 
+
+
