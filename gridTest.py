@@ -2,7 +2,7 @@ import wx
 import wx.grid as wxgrid
 import sqlite3
 
-import globals
+
 
 
 def getNumOfRows():
