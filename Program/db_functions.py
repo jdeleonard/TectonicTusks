@@ -34,3 +34,7 @@ def getAllRows(conn):
     rows = cursor.fetchall()
 
     return rows
+
+
+def printTest():
+    print ("TEST PRINT")
