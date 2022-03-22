@@ -30,59 +30,137 @@ class MyGrid(wxgrid.Grid):
             for c in range(globals.TABLE_COLS):
                 self.SetCellValue(r,c, str(rows[r][c]))
 
-       
+    
         
+class PanelOne(wx.Panel):
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent=parent)
+        #txt = wx.TextCtrl(self)
+        myGrid = MyGrid(self)
+        sizer = wx.BoxSizer(wx.HORIZONTAL)
+        sizer.Add(myGrid, 1)
+        self.SetSizer(sizer)
 
 
+class PanelTwo(wx.Panel):
+
+    def insertItem(self, event):
+
+        conn = opendb("food.db")
+
+        id = self.idText.GetValue()
+        food = self.foodText.GetValue()
+        unit = self.unitText.GetValue()
+        edate = self.edateText.GetValue()
+
+        if (id != ""):
+            insertRow(conn, id, food, unit, edate)
+
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent=parent)
+
+        idLabel = wx.StaticText(self, -1, "ID: ")
+        self.idText = wx.TextCtrl(self, -1)
+
+        foodLabel = wx.StaticText(self, -1, "Food Name: ")
+        self.foodText = wx.TextCtrl(self, -1)
+
+        unitLabel = wx.StaticText(self, -1, "Unit: ")
+        self.unitText = wx.TextCtrl(self, -1)
+
+        edateLabel = wx.StaticText(self, -1, "Expiration Date: ")
+        self.edateText = wx.TextCtrl(self, -1)
+
+
+        sizer = wx.FlexGridSizer(cols=2, hgap=6, vgap=6)
+        sizer.AddMany([idLabel,self.idText,foodLabel,self.foodText,unitLabel,self.unitText,edateLabel,self.edateText])
+    
+
+        button = wx.Button(self, label="Add Item", size=(50,50))
+        self.Bind(wx.EVT_BUTTON, self.insertItem, button)
+
+
+
+        self.SetSizer(sizer)
+
+        
 
 class MyForm(wx.Frame):
 
     def OnQuit(self, e):
         self.Close()
 
-    def printer(self):
-        print("TESTER")
+
     
+    def onSwitchPanels(self, event):
+        if self.panel_one.IsShown():
+            self.SetTitle("Panel Two Showing")
+            self.panel_one.Hide()
+            self.panel_two.Show()
+        else:
+            self.SetTitle("Panel One Showing")
+
+            # Essentially a Refresh of the Panel -- shows updated database table
+            self.panel_one.Destroy()
+            self.panel_one = PanelOne(self)
+            self.sizer = wx.BoxSizer(wx.VERTICAL)
+            self.sizer.Add(self.panel_one, 1, wx.EXPAND)
+            self.SetSizer(self.sizer)
+
+            self.panel_one.Show()
+            self.panel_two.Hide()
+
+        self.Layout()
+        
+        
+    
+
     def __init__(self):
 
-        wx.Frame.__init__(self, parent=None, title="An Eventful Grid", size=(800,450))
-        panel = wx.Panel(self)
+        wx.Frame.__init__(self, parent=None, title="Inventory Sheet", size=(1200,1000))
 
-        myGrid = MyGrid(panel)
+        self.panel_one = PanelOne(self)
+        self.panel_two = PanelTwo(self)
+        
+        self.panel_two.Hide()
 
-        sizer = wx.BoxSizer(wx.HORIZONTAL)
-        sizer.Add(myGrid, 1)
 
-        panel.SetSizer(sizer)
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
+        self.sizer.Add(self.panel_one, 1, wx.EXPAND)
+        self.sizer.Add(self.panel_two, 1, wx.EXPAND)
+        self.SetSizer(self.sizer)
 
-        button = wx.Button(panel, label="Close", size=(50,50))
-        self.Bind(wx.EVT_BUTTON, self.OnCloseMe, button)
-        self.Bind(wx.EVT_CLOSE, self.OnCloseWindow)
+        # menubar = wx.MenuBar()
+        # fileMenu = wx.Menu()
+        # switch_panels_item = fileMenu.Append(wx.ID_ANY, "Switch Panels", "Some Text")
+        # self.Bind(wx.EVT_MENU, self.onSwitchPanels, switch_panels_item)
+        # menubar.Append(fileMenu, '&File')
+        # self.SetMenuBar(menubar)
+        # panel = wx.Panel(self)
+        # button = wx.Button(panel, label="Close", size=(50,50))
+        # self.Bind(wx.EVT_BUTTON, self.OnCloseMe, button)
+        # self.Bind(wx.EVT_CLOSE, self.OnCloseWindow)
 
-        sizer.Add(button, 0, wx.ALL | wx.CENTER, 5) 
+        # sizer.Add(button, 0, wx.ALL | wx.CENTER, 5) 
 
         menubar = wx.MenuBar()
 
         fileMenu = wx.Menu()
-        fileMenu.Append(wx.ID_SAVE, '&Save')
 
-        qmi = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit')
-        fileMenu.Append(qmi)
+        switchItem = fileMenu.Append(wx.ID_ANY, "Switch Panels", "")
+        self.Bind(wx.EVT_MENU, self.onSwitchPanels, switchItem)
 
-        self.Bind(wx.EVT_MENU, self.OnQuit, qmi)
+    
+        quitItem = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit')
+        fileMenu.Append(quitItem)
 
-        functionMenu = wx.Menu()
-        #functionMenu.Append(wx.ID_ANY, '&Update')
-        tester = wx.MenuItem(functionMenu, wx.ID_ANY, '&Update')
-        functionMenu.Append(tester)
-        #self.Bind(wx.EVT_MENU, self.printer(), tester)
+        self.Bind(wx.EVT_MENU, self.OnQuit, quitItem)
 
         menubar.Append(fileMenu, '&File')
-        menubar.Append(functionMenu, '&Functions')
-        
+
         self.SetMenuBar(menubar)
-        self.SetSize((350, 250))
-        self.Centre()
+        # self.SetSize((350, 250))
+        # self.Centre()
 
         
         

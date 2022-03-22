@@ -36,5 +36,8 @@ def getAllRows(conn):
     return rows
 
 
-def printTest():
-    print ("TEST PRINT")
+def insertRow(conn, id, name, unit, edate):
+    cursor = conn.cursor()
+    query = "INSERT INTO food(id, name, amount, unit, expires) VALUES(?, ?, 0, ?, ?)"
+    cursor.execute(query, (id, name, unit, edate))
+    conn.commit()
