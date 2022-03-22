@@ -41,7 +41,7 @@ class MyForm(wx.Frame):
         self.Close()
 
     def printer(self):
-        self.print("TESTER")
+        print("TESTER")
     
     def __init__(self):
 
@@ -75,7 +75,7 @@ class MyForm(wx.Frame):
         #functionMenu.Append(wx.ID_ANY, '&Update')
         tester = wx.MenuItem(functionMenu, wx.ID_ANY, '&Update')
         functionMenu.Append(tester)
-        self.Bind(wx.EVT_MENU, self.printer(), tester)
+        #self.Bind(wx.EVT_MENU, self.printer(), tester)
 
         menubar.Append(fileMenu, '&File')
         menubar.Append(functionMenu, '&Functions')
