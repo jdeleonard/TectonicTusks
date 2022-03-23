@@ -41,3 +41,10 @@ def insertRow(conn, id, name, unit, edate):
     query = "INSERT INTO food(id, name, amount, unit, expires) VALUES(?, ?, 0, ?, ?)"
     cursor.execute(query, (id, name, unit, edate))
     conn.commit()
+
+
+def updateRow(conn, id, amount):
+    cursor = conn.cursor()
+    query = "UPDATE food SET amount=? where id=?"
+    cursor.execute(query, (amount, id))
+    conn.commit()

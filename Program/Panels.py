@@ -5,7 +5,6 @@ from InventoryGrid import *
 class InventoryPanel(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent=parent)
-        #txt = wx.TextCtrl(self)
         myGrid = MyGrid(self)
         sizer = wx.BoxSizer(wx.HORIZONTAL)
         sizer.Add(myGrid, 1)
@@ -41,13 +40,14 @@ class InsertionPanel(wx.Panel):
         edateLabel = wx.StaticText(self, -1, "Expiration Date: ")
         self.edateText = wx.TextCtrl(self, -1)
 
+        button = wx.Button(self, label="Add Item", size=(75,75))
+        self.Bind(wx.EVT_BUTTON, self.insertItem, button)
 
         sizer = wx.FlexGridSizer(cols=2, hgap=6, vgap=6)
-        sizer.AddMany([idLabel,self.idText,foodLabel,self.foodText,unitLabel,self.unitText,edateLabel,self.edateText])
+        sizer.AddMany([idLabel,self.idText,foodLabel,self.foodText,unitLabel,self.unitText,edateLabel,self.edateText, button])
     
 
-        button = wx.Button(self, label="Add Item", size=(50,50))
-        self.Bind(wx.EVT_BUTTON, self.insertItem, button)
+        
 
 
         self.SetSizer(sizer)

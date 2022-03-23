@@ -8,6 +8,13 @@ import globals
 
 class MyGrid(wxgrid.Grid):
 
+    def getInfo(self):
+        conn = opendb("food.db")
+        numRows = getNumOfRows(conn)
+
+        for i in range(numRows):
+            print(self.GetCellValue(i, 0))
+
     def __init__(self, parent):
 
         conn = opendb("food.db")
@@ -16,11 +23,23 @@ class MyGrid(wxgrid.Grid):
         self.CreateGrid(getNumOfRows(conn), globals.TABLE_COLS)
         self.SetColSize(4,120)
 
+        readOnlyAttr = wxgrid.GridCellAttr()
+        readOnlyAttr.SetReadOnly(True)
+        self.SetColAttr(0, readOnlyAttr)
+        self.SetColAttr(1, readOnlyAttr)
+        self.SetColAttr(3, readOnlyAttr)
+        self.SetColAttr(4, readOnlyAttr)
+
+
         self.SetColLabelValue(0, "ID")
         self.SetColLabelValue(1, "Food")
         self.SetColLabelValue(2, "Amount")
         self.SetColLabelValue(3, "Unit")
         self.SetColLabelValue(4, "Expiration Date")
+
+
+        
+        
 
         rows = getAllRows(conn)
 
@@ -30,7 +49,13 @@ class MyGrid(wxgrid.Grid):
             for c in range(globals.TABLE_COLS):
                 self.SetCellValue(r,c, str(rows[r][c]))
 
-    
+
+        idAndAmounts = []
+        for i in range(numRows):
+            tmp = [self.GetCellValue(i,0), self.GetCellValue(i, 2)]
+            idAndAmounts.append(tmp)
+
+        print(idAndAmounts)
         
 class PanelOne(wx.Panel):
     def __init__(self, parent):
@@ -53,6 +78,11 @@ class PanelTwo(wx.Panel):
         unit = self.unitText.GetValue()
         edate = self.edateText.GetValue()
 
+        self.idText.SetValue("")
+        self.foodText.SetValue("")
+        self.unitText.SetValue("")
+        self.edateText.SetValue("")
+
         if (id != ""):
             insertRow(conn, id, food, unit, edate)
 
@@ -72,12 +102,15 @@ class PanelTwo(wx.Panel):
         self.edateText = wx.TextCtrl(self, -1)
 
 
+        button = wx.Button(self, label="Add Item", size=(75,75))
+        self.Bind(wx.EVT_BUTTON, self.insertItem, button)
+
+
         sizer = wx.FlexGridSizer(cols=2, hgap=6, vgap=6)
-        sizer.AddMany([idLabel,self.idText,foodLabel,self.foodText,unitLabel,self.unitText,edateLabel,self.edateText])
+        sizer.AddMany([idLabel,self.idText,foodLabel,self.foodText,unitLabel,self.unitText,edateLabel,self.edateText, button])
     
 
-        button = wx.Button(self, label="Add Item", size=(50,50))
-        self.Bind(wx.EVT_BUTTON, self.insertItem, button)
+
 
 
 
@@ -113,7 +146,25 @@ class MyForm(wx.Frame):
         self.Layout()
         
         
-    
+    def updateDB(self, event):
+        conn = opendb("food.db")
+
+        numRows = getNumOfRows(conn)
+
+
+
+        #updateRow(conn, 20, 20)
+
+
+
+        # Refresh the Panel
+        self.panel_one.Destroy()
+        self.panel_one = PanelOne(self)
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
+        self.sizer.Add(self.panel_one, 1, wx.EXPAND)
+        self.SetSizer(self.sizer)
+        self.panel_one.Show()
+        self.Layout()
 
     def __init__(self):
 
@@ -150,10 +201,11 @@ class MyForm(wx.Frame):
         switchItem = fileMenu.Append(wx.ID_ANY, "Switch Panels", "")
         self.Bind(wx.EVT_MENU, self.onSwitchPanels, switchItem)
 
-    
+        updateItem = fileMenu.Append(wx.ID_ANY, "Update Sheet", "")
+        self.Bind(wx.EVT_MENU, self.updateDB, updateItem)
+
         quitItem = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit')
         fileMenu.Append(quitItem)
-
         self.Bind(wx.EVT_MENU, self.OnQuit, quitItem)
 
         menubar.Append(fileMenu, '&File')
