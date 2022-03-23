@@ -2,7 +2,7 @@ import wx, sqlite3
 
 from InventoryGrid import *
 
-class PanelOne(wx.Panel):
+class InventoryPanel(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent=parent)
         #txt = wx.TextCtrl(self)
@@ -12,7 +12,7 @@ class PanelOne(wx.Panel):
         self.SetSizer(sizer)
 
 
-class PanelTwo(wx.Panel):
+class InsertionPanel(wx.Panel):
 
     def insertItem(self, event):
 
@@ -48,7 +48,6 @@ class PanelTwo(wx.Panel):
 
         button = wx.Button(self, label="Add Item", size=(50,50))
         self.Bind(wx.EVT_BUTTON, self.insertItem, button)
-
 
 
         self.SetSizer(sizer)

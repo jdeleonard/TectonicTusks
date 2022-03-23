@@ -5,63 +5,76 @@ import sqlite3
 import globals
 
 from db_functions import *
+from InventoryGrid import *
+from Panels import *
 
 
-class GridFrame(wx.Frame):
-    def __init__(self, parent):
 
-        conn = opendb("food.db")
+class MainForm(wx.Frame):
+
+    def OnQuit(self, e):
+        self.Close()
+    
+    def onSwitchPanels(self, event):
+        if self.invent_panel.IsShown():
+            self.SetTitle("Insert New Item")
+            self.invent_panel.Hide()
+            self.insert_panel.Show()
+        else:
+            self.SetTitle("Inventory Sheet")
+
+            # Essentially a Refresh of the Panel -- shows updated database table
+            self.invent_panel.Destroy()
+            self.invent_panel = InventoryPanel(self)
+            self.sizer = wx.BoxSizer(wx.VERTICAL)
+            self.sizer.Add(self.invent_panel, 1, wx.EXPAND)
+            self.SetSizer(self.sizer)
+
+            self.invent_panel.Show()
+            self.insert_panel.Hide()
+
+        self.Layout()
         
-        wx.Frame.__init__(self, parent)
 
-        grid = wx.Panel(self)
-        grid = wxgrid.Grid(self, -2)
+    def __init__(self):
 
-        grid.CreateGrid(getNumOfRows(conn), globals.TABLE_COLS)
+        wx.Frame.__init__(self, parent=None, title="Inventory Sheet", size=(1000,800))
 
-        grid.SetColSize(4, 120)
-
-        grid.SetColLabelValue(0, "ID")
-        grid.SetColLabelValue(1, "Food")
-        grid.SetColLabelValue(2, "Amount")
-        grid.SetColLabelValue(3, "Unit")
-        grid.SetColLabelValue(4, "Expiration Date")
-
-        rows = getAllRows(conn)
+        self.invent_panel = InventoryPanel(self)
+        self.insert_panel = InsertionPanel(self)
+        
+        self.insert_panel.Hide()
 
 
-        numRows = getNumOfRows(conn)
-      
-        for r in range(getNumOfRows(conn)):
-            for c in range(globals.TABLE_COLS):
-                grid.SetCellValue(r, c, str(rows[r][c]))
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
+        self.sizer.Add(self.invent_panel, 1, wx.EXPAND)
+        self.sizer.Add(self.insert_panel, 1, wx.EXPAND)
+        self.SetSizer(self.sizer)
 
-                
-        self.Show()
 
-#  class InsertFrame(wx.Frame):
-#     def __init__(self, parent, id):
-#         wx.Frame.__init__(self,parent,id, 'Frame with Button', size=(300,100))
-#         panel = wx.Panel(self)
-#         button = wx.Button(panel, label="Close", pos=(125,10), size=(50,50))
-#         self.Bind(wx.EVT_BUTTON, self.OnCloseMe, button)
-#         self.Bind(wx.EVT_CLOSE, self.OnCloseWindow)
+        # Menubar Creation
+        menubar = wx.MenuBar()
+        fileMenu = wx.Menu()
 
-#     def OnCloseMe(self, event):
-#         self.Close(True)
+        switchItem = fileMenu.Append(wx.ID_ANY, "Switch Panels", "")
+        self.Bind(wx.EVT_MENU, self.onSwitchPanels, switchItem)
 
-#     def OnCloseWindow(self, event):
-#         self.Destroy() 
+    
+        quitItem = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit')
+        fileMenu.Append(quitItem)
+
+        self.Bind(wx.EVT_MENU, self.OnQuit, quitItem)
+
+        menubar.Append(fileMenu, '&File')
+
+        self.SetMenuBar(menubar)
 
 
 if __name__ == '__main__':
 
-    
+    app = wx.App()
 
-    app = wx.App(100)
+    frame = MainForm()
+    frame.Show()
 
-    frame = GridFrame(parent=None)
-
-    #frame2 = InsertFrame(parent=frame, id=-1)
-    #frame2.Show()
     app.MainLoop()
