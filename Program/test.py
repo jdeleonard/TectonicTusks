@@ -225,6 +225,22 @@ class MyForm(wx.Frame):
     def OnCloseWindow(self, event):
         self.Destroy() 
 
+class testFrame(wx.Frame):
+    def __int__(self):
+        wx.Frame.__int__(self, parent = None, title = "Invenotry Sheet", size = (300,100))
+        self.test_panel = testPanel(self)
+
+class testPanel(wx.Panel):
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent = parent)
+        buttonDelete = wx.Button(self, label="Delete", size=(50,50))
+        my_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        my_sizer.Add(buttonDelete, 0, wx.ALL | wx.LEFT, 5)
+        self.setSizer(my_sizer)
+
+
+
+
 
 
 
@@ -232,4 +248,6 @@ if __name__ == "__main__":
     app = wx.App()
     frame = MyForm()
     frame.Show()
+    frame2 = testFrame()
+    frame2.Show()
     app.MainLoop()
