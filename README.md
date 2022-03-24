@@ -11,4 +11,4 @@ This program will be designed for a food inventory system.
     Data Base to keep track of inventory.
 
 
-Burndown Chart: https://docs.google.com/spreadsheets/d/1R1r8R7-mkdIbSf4Zr8tjLXpdcDqeaTjEzZPlYxEPD6E/edit?usp=sharing
+Burndown Chart: https://docs.google.com/spreadsheets/d/1g1YuG0IA-uZde09JvNPt-srf_bLGJhO4BVd0jcr1MY4/edit?usp=sharing
