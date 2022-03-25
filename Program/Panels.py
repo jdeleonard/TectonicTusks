@@ -22,6 +22,11 @@ class InsertionPanel(wx.Panel):
         unit = self.unitText.GetValue()
         edate = self.edateText.GetValue()
 
+        self.idText.SetValue("")
+        self.foodText.SetValue("")
+        self.unitText.SetValue("")
+        self.edateText.SetValue("")
+
         if (id != ""):
             insertRow(conn, id, food, unit, edate)
 
