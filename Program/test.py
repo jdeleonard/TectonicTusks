@@ -56,6 +56,18 @@ class PanelTwo(wx.Panel):
         if (id != ""):
             insertRow(conn, id, food, unit, edate)
 
+        self.idText.SetValue("")
+        self.foodText.SetValue("")
+        self.unitText.SetValue("")
+        self.edateText.SetValue("")
+
+        self.GetParent().GetParent().refr()
+        
+
+        
+
+
+
     def __init__(self, parent):
         wx.Panel.__init__(self, parent=parent)
 
@@ -71,27 +83,38 @@ class PanelTwo(wx.Panel):
         edateLabel = wx.StaticText(self, -1, "Expiration Date: ")
         self.edateText = wx.TextCtrl(self, -1)
 
-
-        sizer = wx.FlexGridSizer(cols=2, hgap=6, vgap=6)
-        sizer.AddMany([idLabel,self.idText,foodLabel,self.foodText,unitLabel,self.unitText,edateLabel,self.edateText])
-    
-
-        button = wx.Button(self, label="Add Item", size=(50,50))
+        button = wx.Button(self, label="Add", size=(50,50))
         self.Bind(wx.EVT_BUTTON, self.insertItem, button)
 
-
+        sizer = wx.FlexGridSizer(cols=2, hgap=6, vgap=6)
+        sizer.AddMany([idLabel,self.idText,foodLabel,self.foodText,unitLabel,self.unitText,edateLabel,self.edateText, button])
+    
 
         self.SetSizer(sizer)
 
+
+
         
+class InsertFrame(wx.Frame):
+    def __init__(self, parent):
+        wx.Frame.__init__(self, parent, title = "Insert New Item", size = (300,300))
+        self.test_panel = PanelTwo(self)
+
+
 
 class MyForm(wx.Frame):
 
     def OnQuit(self, e):
         self.Close()
 
+    def refr(self):
+        self.panel_one.Destroy()
+        self.panel_one = PanelOne(self)
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
+        self.sizer.Add(self.panel_one, 1, wx.EXPAND)
+        self.SetSizer(self.sizer)
+        self.Layout()
 
-    
     def onSwitchPanels(self, event):
         if self.panel_one.IsShown():
             self.SetTitle("Panel Two Showing")
@@ -101,23 +124,30 @@ class MyForm(wx.Frame):
             self.SetTitle("Panel One Showing")
 
             # Essentially a Refresh of the Panel -- shows updated database table
-            self.panel_one.Destroy()
-            self.panel_one = PanelOne(self)
-            self.sizer = wx.BoxSizer(wx.VERTICAL)
-            self.sizer.Add(self.panel_one, 1, wx.EXPAND)
-            self.SetSizer(self.sizer)
-
+            #self.panel_one.Destroy()
+            #self.panel_one = PanelOne(self)
+            #self.sizer = wx.BoxSizer(wx.VERTICAL)
+            #self.sizer.Add(self.panel_one, 1, wx.EXPAND)
+            #self.SetSizer(self.sizer)
+            #self.panel_one.Layout()
+            self.refr()
             self.panel_one.Show()
             self.panel_two.Hide()
-
-        self.Layout()
         
+        self.Layout()
+
+    def onInsertNewItem(self, event):
+        frame2 = InsertFrame(self)
+        frame2.Show()
+
+        
+    
         
     
 
     def __init__(self):
 
-        wx.Frame.__init__(self, parent=None, title="Inventory Sheet", size=(1200,1000))
+        wx.Frame.__init__(self, parent=None, title="Inventory Sheet", size=(800,600))
 
         self.panel_one = PanelOne(self)
         self.panel_two = PanelTwo(self)
@@ -150,10 +180,12 @@ class MyForm(wx.Frame):
         switchItem = fileMenu.Append(wx.ID_ANY, "Switch Panels", "")
         self.Bind(wx.EVT_MENU, self.onSwitchPanels, switchItem)
 
+        insertItem = fileMenu.Append(wx.ID_ANY, "Insert New Item", "")
+        self.Bind(wx.EVT_MENU, self.onInsertNewItem, insertItem)
+
     
         quitItem = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit')
         fileMenu.Append(quitItem)
-
         self.Bind(wx.EVT_MENU, self.OnQuit, quitItem)
 
         menubar.Append(fileMenu, '&File')
@@ -161,10 +193,6 @@ class MyForm(wx.Frame):
         self.SetMenuBar(menubar)
         # self.SetSize((350, 250))
         # self.Centre()
-
-        
-        
-    
 
 
     def OnCloseMe(self, event):
