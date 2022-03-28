@@ -1,9 +1,24 @@
 import wx
 import wx.grid as wxgrid
+import datetime
 
 from db_functions import *
 import globals
 
+
+def shouldBeRed(edate):
+    now = datetime.datetime.now()
+
+    eyear = int(edate[0:4])
+    emonth = int(edate[5:7])
+    eday = int(edate[8:10])
+    edate = datetime.datetime(eyear, emonth, eday)
+
+    if (now >= edate):
+        return True
+    elif (now < edate):
+        return False
+    
 
 
 class MyGrid(wxgrid.Grid):
@@ -28,6 +43,11 @@ class MyGrid(wxgrid.Grid):
 
         for r in range(numRows):
             for c in range(globals.TABLE_COLS):
+                if (c == 4):
+                    edate = str(rows[r][c])
+                    if (shouldBeRed(edate)):
+                        self.SetCellTextColour(r,c,"red")
+
                 self.SetCellValue(r,c, str(rows[r][c]))
 
     
