@@ -1,6 +1,6 @@
 Requirements Specification for Restaurant Management System
 
-1.	Introduction
+<strong>1)	Introduction</strong>
 
   - I.	Purpose of Product
 
@@ -16,13 +16,12 @@ Requirements Specification for Restaurant Management System
 
 
   - III.	Acronyms, Abbreviations, Definitions
-
-
-  - IV.	References
+    - UI = "User Interface"; refers to the visual application of the system on the computer screen -- includes the spreadsheet, buttons, etc.
+    - GUI = "Graphical User Interface"; refers to the visual application of the system on the computer screen -- includes the spreadsheet, buttons, etc.
 
 
 <br><br><br>
-2.	General Description of Product
+<strong>2)	General Description of Product</strong>
 
   - I.	Context of Product
 
@@ -31,20 +30,34 @@ Requirements Specification for Restaurant Management System
 
   - II.	Domain Model with Description
 
-    - The main model for this system is a Publish-Subscribe and Repository Architectures. The system is using the Publish-Subscribe idea to registering procedures with events within the UI of the systems (window buttons, menu options, etc.), and based on which button/event is triggered, a central data store has its information changed, deleted, or new information added. This second part is what makes this product also a Repository model. This system uses a traditional database as its central data store
+    - 
+    
+  - III. Product Functions
+    - The main function of this product is to have a central application and system for storing information about food inventory counts and expiration dates. The system would also be able to give information about product usage deviation and be completely self-servable -- meaning that one the user receives the software, they can do everything they need themselves.
 
+  - IV. User Characteristics and Expectations
+    - The users of this system should be able to add inventory items, delete items, update/modify counts and amounts for existing items, update/modify expiration dates for existing items, and also be able to see past days inventory counts and see the percent lost/used between days.
+
+  - V. Constraints
+    - We are dependant on wxPython being installed currently.
+    - The running machine needs to be able to have read/write access in it's save place -- for changing the database.
+
+  - VI. Assumptions and Dependencies
+    - Our software/system currently depends on Python 3 being installed.
+    - Our software/system currently depends on the wxPython package in order to run the application.
+    - Our software/systems is being designed to work on a Windows OS machine.
 
 
 
 
 <br><br><br>
-3.  Functional Requirements
+<strong>3)  Functional Requirements</strong>
 
 
 
 
 <br><br><br>
-4.  System and Non-functional Requirements
+<string>4)  System and Non-functional Requirements</strong>
 
   - I.  External Interface Requirements
 
