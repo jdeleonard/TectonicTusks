@@ -21,7 +21,7 @@ Requirements Specification for Restaurant Management System
   - IV.	References
 
 
-
+<br><br><br>
 2.	General Description of Product
 
   - I.	Context of Product
@@ -37,20 +37,14 @@ Requirements Specification for Restaurant Management System
 
 
 
-
+<br><br><br>
 3.  Functional Requirements
 
 
 
 
-
+<br><br><br>
 4.  System and Non-functional Requirements
-
-
-
-
-
-
 
   - I.  External Interface Requirements
 
