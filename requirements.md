@@ -30,7 +30,7 @@ Requirements Specification for Restaurant Management System
 
   - II.	Domain Model with Description
 
-    - 
+    - ![Domain Model](/assets/DomainModel.png)
     
   - III. Product Functions
     - The main function of this product is to have a central application and system for storing information about food inventory counts and expiration dates. The system would also be able to give information about product usage deviation and be completely self-servable -- meaning that one the user receives the software, they can do everything they need themselves.
