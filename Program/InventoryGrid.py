@@ -4,7 +4,7 @@ import wx.grid as wxgrid
 from db_functions import *
 
 
-class MyGrid(wxgrid.Grid):
+class InventoryGrid(wxgrid.Grid):
 
     def __init__(self, parent):
 

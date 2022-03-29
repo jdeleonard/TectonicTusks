@@ -5,7 +5,7 @@ from InventoryGrid import *
 class InventoryPanel(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent=parent)
-        myGrid = MyGrid(self)
+        myGrid = InventoryGrid(self)
         sizer = wx.BoxSizer(wx.HORIZONTAL)
         sizer.Add(myGrid, 1)
         self.SetSizer(sizer)
