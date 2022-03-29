@@ -30,7 +30,9 @@ Requirements Specification for Restaurant Management System
 
   - II.	Domain Model with Description
 
-    - ![Domain Model](/assets/DomainModel.png)
+    ![Domain Model](/assets/DomainModel.png)
+
+    - This UML Domain Model describes the software for the application. The main and central class is the MainFrame, which contains various GUI methods, which will switch between panels. The InventoryPanel class inherits from the MainFrame class, and the MainFrame class contains a panel which is displayed in the frame from the MainFrame class. The InsertFrame and DeleteFrame classes inherit from the MainFrame class. Each of these classes also have a child Panel which can be turned on or off, which also contains GUI content. The InsertPanel and DeletePanel have methods to modify and change the food database. The application depends on the MainFrame running in a main loop, while the children classes have objects that can be destroyed and created based on GUI actions and buttons.
     
   - III. Product Functions
     - The main function of this product is to have a central application and system for storing information about food inventory counts and expiration dates. The system would also be able to give information about product usage deviation and be completely self-servable -- meaning that one the user receives the software, they can do everything they need themselves.
@@ -57,7 +59,7 @@ Requirements Specification for Restaurant Management System
 
 
 <br><br><br>
-<string>4)  System and Non-functional Requirements</strong>
+<strong>4)  System and Non-functional Requirements</strong>
 
   - I.  External Interface Requirements
 
