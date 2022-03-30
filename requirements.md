@@ -62,24 +62,13 @@ Requirements Specification for Restaurant Management System
 | FR003 | The application will have an adding items screen that will allow the user to add new items to the inventory | Must | Database |
 | FR004 | The application will have a screen for retrieving previous inventories from prior dates. | Want | Database |
 | FR005 | The application will have a screen for comparing inventories from prior dates. | Database |
-| FR006 | The application will have a database that contains the following information:
-          -	A unique ID for identifying each item on the inventory
-          -	The amount of stock for that item
-          -	The units that the amount is counted by
-          -	Expiration date for the item                                                 | Must | Database |
-| FR007 | The application will have a database for inventories of previous days, contains the following information:
-          -	A unique ID for each date
-          -	The date of the inventory
-          -	A link to the database in the format of FR006. | Must | Database |
+| FR006 | The application will have a database that contains the following information: A unique ID for identifying each item on the inventory, the amount of stock for that item, the units that the amount is counted by, Expiration date for the item | Must | Database |
+| FR007 | The application will have a database for inventories of previous days, contains the following information: A unique ID for each date, the date of the inventory, a link to the database in the format of FR006. | Must | Database |
 | FR008 | The home screen (FR001) will have a button to finalize the inventory of that day. | Must | Database |
 | FR009 | The home screen (FR001) will have a button to start a fresh day’s inventory. | Must |  |
 | FR010 | The home screen (FR001) will display the current day’s inventory in a table that the user is able to edit by clicking on the text and typing | Must | Database |
 | FR011 | The home screen (FR001) will have a save button to save the inputted information into the database. | Must | Database |
-| FR012 | The adding screen (FR003) will display boxes that the user can type into to input information about the new item being added into the inventory. The information inputted is:  
-          -	Food Name
-          -	Amount of item
-          -	Unit to measure amount
-          -	Expiration Date | Must | Database|
+| FR012 | The adding screen (FR003) will display boxes that the user can type into to input information about the new item being added into the inventory. The information inputted is: Food Name, amount of item, unit to measure amount, expiration Date | Must | Database|
 | FR013 | The adding screen (FR003) will have an “Add Item” button that adds the inputted information from FR012 into the database | Must | Database |
 | FR014 | The retrieving previous entries screen (FR004) will have a box to input a date that the user wants to retrieve the data from | Want | |
 | FR015 | The retrieving previous entries screen (FR004) will have a button to retrieve the data from the inputted date (FR014). On activation, a table of the inventory for the inputted date is displayed. | Want | Database |
