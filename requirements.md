@@ -61,7 +61,7 @@ Requirements Specification for Restaurant Management System
 | FR002 | The application will have a menu bar that will allow the user to switch pages. | Must | |
 | FR003 | The application will have an adding items screen that will allow the user to add new items to the inventory | Must | Database |
 | FR004 | The application will have a screen for retrieving previous inventories from prior dates. | Want | Database |
-| FR005 | The application will have a screen for comparing inventories from prior dates. | Database |
+| FR005 | The application will have a screen for comparing inventories from prior dates. | Must | Database |
 | FR006 | The application will have a database that contains the following information: A unique ID for identifying each item on the inventory, the amount of stock for that item, the units that the amount is counted by, Expiration date for the item | Must | Database |
 | FR007 | The application will have a database for inventories of previous days, contains the following information: A unique ID for each date, the date of the inventory, a link to the database in the format of FR006. | Must | Database |
 | FR008 | The home screen (FR001) will have a button to finalize the inventory of that day. | Must | Database |
