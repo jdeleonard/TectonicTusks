@@ -77,8 +77,7 @@ Requirements Specification for Restaurant Management System
 | FR018 | The adding screen (FR003) will have an input box for the user to type what item they want to remove, they type in the unique ID of the item. | Must | |
 | FR019 | The adding screen (FR003) will have a button do delete the item from the database once FR018 has been inputted. | Must | |
 
-
-
+Link To Our User Stories: https://jdeleonard.github.io/TectonicTusks/userstories
 
 
 

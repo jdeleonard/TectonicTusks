@@ -1,6 +1,6 @@
 <strong> Architecture Page
 
-![Architecture Model](/assets/ArchitectureModel.png) 
+![Architecture Model](/assets/ArchDiagram.png) 
 
 <br><br>
 - Our Architecture will follow a repository style. This style consists of a central data store (database) and data accessing component. This style fits very well with our project as our whole project is dependent on a database and our application interface operates on the database (repository).<br>
