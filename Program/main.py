@@ -7,34 +7,11 @@ import globals
 from db_functions import *
 from InventoryGrid import *
 from Panels import *
+from Frames import *
 
 
 
 class MainForm(wx.Frame):
-
-    def OnQuit(self, e):
-        self.Close()
-    
-    def onSwitchPanels(self, event):
-        if self.invent_panel.IsShown():
-            self.SetTitle("Insert New Item")
-            self.invent_panel.Hide()
-            self.insert_panel.Show()
-        else:
-            self.SetTitle("Inventory Sheet")
-
-            # Essentially a Refresh of the Panel -- shows updated database table
-            self.invent_panel.Destroy()
-            self.invent_panel = InventoryPanel(self)
-            self.sizer = wx.BoxSizer(wx.VERTICAL)
-            self.sizer.Add(self.invent_panel, 1, wx.EXPAND)
-            self.SetSizer(self.sizer)
-
-            self.invent_panel.Show()
-            self.insert_panel.Hide()
-
-        self.Layout()
-        
 
     def __init__(self):
 
@@ -59,7 +36,11 @@ class MainForm(wx.Frame):
         switchItem = fileMenu.Append(wx.ID_ANY, "Switch Panels", "")
         self.Bind(wx.EVT_MENU, self.onSwitchPanels, switchItem)
 
-    
+
+        insertItem = fileMenu.Append(wx.ID_ANY, "Insert New Item", "")
+        self.Bind(wx.EVT_MENU, self.onInsertNewItem, insertItem)
+
+
         quitItem = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit')
         fileMenu.Append(quitItem)
 
@@ -68,6 +49,48 @@ class MainForm(wx.Frame):
         menubar.Append(fileMenu, '&File')
 
         self.SetMenuBar(menubar)
+
+
+
+    def OnQuit(self, e):
+        self.Close()
+    
+    def onSwitchPanels(self, event):
+        if self.invent_panel.IsShown():
+            self.SetTitle("Insert New Item")
+            self.invent_panel.Hide()
+            self.insert_panel.Show()
+        else:
+            self.SetTitle("Inventory Sheet")
+
+            # Essentially a Refresh of the Panel -- shows updated database table
+            self.invent_panel.Destroy()
+            self.invent_panel = InventoryPanel(self)
+            self.sizer = wx.BoxSizer(wx.VERTICAL)
+            self.sizer.Add(self.invent_panel, 1, wx.EXPAND)
+            self.SetSizer(self.sizer)
+
+            self.invent_panel.Show()
+            self.insert_panel.Hide()
+
+        self.Layout()
+
+
+    def refreshGrid(self):
+        self.invent_panel.Destroy()
+        self.invent_panel = InventoryPanel(self)
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
+        self.sizer.Add(self.invent_panel, 1, wx.EXPAND)
+        self.SetSizer(self.sizer)
+        self.Layout()
+
+    def onInsertNewItem(self, event):
+        insertFrame = InsertionFrame(self)
+        insertFrame.Show()
+
+
+
+
 
 
 if __name__ == '__main__':
