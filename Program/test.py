@@ -160,6 +160,10 @@ class MyForm(wx.Frame):
         frame2 = InsertFrame(self)
         frame2.Show()
 
+    def onSaveForDay(self, event):
+        conn = opendb("food.db")
+        saveFoodForDay(conn)
+
         
     
         
@@ -195,6 +199,7 @@ class MyForm(wx.Frame):
 
         menubar = wx.MenuBar()
 
+        # File Menubar Tab
         fileMenu = wx.Menu()
 
         switchItem = fileMenu.Append(wx.ID_ANY, "Switch Panels", "")
@@ -208,7 +213,16 @@ class MyForm(wx.Frame):
         fileMenu.Append(quitItem)
         self.Bind(wx.EVT_MENU, self.OnQuit, quitItem)
 
+
+        # Save Menubar Tab
+        saveMenu = wx.Menu()
+
+        saveForDayItem = saveMenu.Append(wx.ID_ANY, "Post Inventory for Day", "")
+        self.Bind(wx.EVT_MENU, self.onSaveForDay, saveForDayItem)
+
+
         menubar.Append(fileMenu, '&File')
+        menubar.Append(saveMenu, '&Save')
 
         self.SetMenuBar(menubar)
         # self.SetSize((350, 250))
