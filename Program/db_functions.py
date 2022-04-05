@@ -44,20 +44,7 @@ def insertRow(conn, id, name, unit, edate):
     cursor.execute(query, (id, name, unit, edate))
     conn.commit()
 
-
-def checkForAlreadyPost(conn):
-    today = date.today()
-    cursor = conn.cursor()
-    query = "SELECT * FROM past_food where date = ?"
-    print(today)
-    cursor.execute(query, (today))
-    rows = cursor.fetchall()
-    if (rows > 0):
-        print (">0")
-    else:
-        print ("<0")
-
-
+# Backups/Daily Save Functions
 
 def saveFoodForDay(conn):
     cursor = conn.cursor()
@@ -65,8 +52,19 @@ def saveFoodForDay(conn):
     cursor.execute(query)
     rows = cursor.fetchall()
     insertFoodBackupsForDay(conn, rows)
-    
 
+def checkForAlreadyPost(conn):
+    today = date.today()
+    cursor = conn.cursor()
+    query = "SELECT * FROM past_food where date='{}'".format(today)
+    cursor.execute(query)
+    rows = cursor.fetchall()
+
+    if (len(rows) > 0):
+        query = "DELETE FROM past_food where date='{}'".format(today)
+        cursor.execute(query)
+        conn.commit()
+    
 def insertFoodBackupsForDay(conn, list):
     today = date.today()
     checkForAlreadyPost(conn)
