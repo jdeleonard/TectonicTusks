@@ -51,6 +51,38 @@ class MyGrid(wxgrid.Grid):
                 self.SetCellValue(r,c, str(rows[r][c]))
 
     
+class PastFoodGrid(wxgrid.Grid):
+
+    def __init__ (self, parent):
+
+        wxgrid.Grid.__init__(self, parent)
+        conn = opendb("food.db")
+
+        
+class PastFoodPanel(wx.Panel):
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent=parent)
+
+        dateLabel = wx.StaticText(self, -1, "Date: ")
+        self.dateText = wx.TextCtrl(self, -1)
+
+        button = wx.Button(self, label="Get Inventory", size=(100,50))
+        self.Bind(wx.EVT_BUTTON, self.displayPast, button)
+
+        sizer = wx.FlexGridSizer(cols=2, hgap=6, vgap=6)
+        sizer.AddMany([dateLabel,self.dateText,button])
+
+        self.SetSizer(sizer)
+
+
+    def displayPast(self, event, parent):
+        print(self.dateText.GetValue())
+        #wx.Panel.__init__(self, parent=parent)
+        #myGrid = MyGrid(self)
+        #sizer = wx.BoxSizer(wx.HORIZONTAL)
+        #sizer.Add(myGrid, 1)
+        #self.SetSizer(sizer)
+
         
 class PanelOne(wx.Panel):
     def __init__(self, parent):
@@ -63,30 +95,6 @@ class PanelOne(wx.Panel):
 
 
 class PanelTwo(wx.Panel):
-
-    def insertItem(self, event):
-
-        conn = opendb("food.db")
-
-        id = self.idText.GetValue()
-        food = self.foodText.GetValue()
-        unit = self.unitText.GetValue()
-        edate = self.edateText.GetValue()
-
-        if (id != ""):
-            insertRow(conn, id, food, unit, edate)
-
-        self.idText.SetValue("")
-        self.foodText.SetValue("")
-        self.unitText.SetValue("")
-        self.edateText.SetValue("")
-
-        self.GetParent().GetParent().refr()
-        
-
-        
-
-
 
     def __init__(self, parent):
         wx.Panel.__init__(self, parent=parent)
@@ -111,6 +119,25 @@ class PanelTwo(wx.Panel):
     
 
         self.SetSizer(sizer)
+
+    def insertItem(self, event):
+
+        conn = opendb("food.db")
+
+        id = self.idText.GetValue()
+        food = self.foodText.GetValue()
+        unit = self.unitText.GetValue()
+        edate = self.edateText.GetValue()
+
+        if (id != ""):
+            insertRow(conn, id, food, unit, edate)
+
+        self.idText.SetValue("")
+        self.foodText.SetValue("")
+        self.unitText.SetValue("")
+        self.edateText.SetValue("")
+
+        self.GetParent().GetParent().refr()
 
 
 
@@ -139,7 +166,7 @@ class MyForm(wx.Frame):
         if self.panel_one.IsShown():
             self.SetTitle("Panel Two Showing")
             self.panel_one.Hide()
-            self.panel_two.Show()
+            self.past_panel.Show()
         else:
             self.SetTitle("Panel One Showing")
 
@@ -152,7 +179,7 @@ class MyForm(wx.Frame):
             #self.panel_one.Layout()
             self.refr()
             self.panel_one.Show()
-            self.panel_two.Hide()
+            self.past_panel.Hide()
         
         self.Layout()
 
@@ -164,10 +191,7 @@ class MyForm(wx.Frame):
         conn = opendb("food.db")
         saveFoodForDay(conn)
 
-        
-    
-        
-    
+
 
     def __init__(self):
 
@@ -175,13 +199,16 @@ class MyForm(wx.Frame):
 
         self.panel_one = PanelOne(self)
         self.panel_two = PanelTwo(self)
+        self.past_panel = PastFoodPanel(self)
         
         self.panel_two.Hide()
+        self.past_panel.Hide()
 
 
         self.sizer = wx.BoxSizer(wx.VERTICAL)
         self.sizer.Add(self.panel_one, 1, wx.EXPAND)
         self.sizer.Add(self.panel_two, 1, wx.EXPAND)
+        self.sizer.Add(self.past_panel, 1, wx.EXPAND)
         self.SetSizer(self.sizer)
 
         # menubar = wx.MenuBar()
