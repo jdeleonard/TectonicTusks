@@ -11,7 +11,12 @@ def opendb(dbFile):
 
     return conn
 
-
+def deleteItemSQL(conn, id):
+    cursor = conn.cursor()
+    query = "DELETE FROM food WHERE id = %s"
+    idForDelete = (id, )
+    cursor.execute(query, idForDelete)
+    conn.commit()
 
 def getNumOfRows(conn):
     
