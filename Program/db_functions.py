@@ -56,10 +56,16 @@ def updateRow(conn, id, amount):
     cursor.execute(query, (amount, id))
     conn.commit()
 
-
-
-
+# returns date as datetime.date with given id
 def getExpireDate(conn, id):
     cursor = conn.cursor()
     query = "SELECT expires FROM food WHERE id=?"
+    cursor.execute(query, (id, ))
+    return cursor.fetchone()[0]
+
+# returns inventory amount with given id
+def getInventoryAmount(conn, id):
+    cursor = conn.cursor()
+    query = "SELECT amount FROM food WHERE id=?"
+    cursor.execute(query, (id, ))
     return cursor.fetchone()[0]

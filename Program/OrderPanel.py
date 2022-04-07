@@ -75,7 +75,7 @@ class OrderButton(wx.Button):
         print("Placeholder, will complete later")
 
     # Updates the inventory status for the given items
-    def getInventoryStatus(self):
+    def updateInventoryStatus(self):
         print("Placeholder, will complete later")
 
 
