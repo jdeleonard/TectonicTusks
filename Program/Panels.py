@@ -13,23 +13,6 @@ class InventoryPanel(wx.Panel):
 
 class InsertionPanel(wx.Panel):
 
-    def insertItem(self, event):
-
-        conn = opendb("food.db")
-
-        id = self.idText.GetValue()
-        food = self.foodText.GetValue()
-        unit = self.unitText.GetValue()
-        edate = self.edateText.GetValue()
-
-        self.idText.SetValue("")
-        self.foodText.SetValue("")
-        self.unitText.SetValue("")
-        self.edateText.SetValue("")
-
-        if (id != ""):
-            insertRow(conn, id, food, unit, edate)
-
     def __init__(self, parent):
         wx.Panel.__init__(self, parent=parent)
 
@@ -50,9 +33,25 @@ class InsertionPanel(wx.Panel):
 
         sizer = wx.FlexGridSizer(cols=2, hgap=6, vgap=6)
         sizer.AddMany([idLabel,self.idText,foodLabel,self.foodText,unitLabel,self.unitText,edateLabel,self.edateText, button])
-    
-
-        
-
 
         self.SetSizer(sizer)
+
+
+    def insertItem(self, event):
+
+        conn = opendb("food.db")
+
+        id = self.idText.GetValue()
+        food = self.foodText.GetValue()
+        unit = self.unitText.GetValue()
+        edate = self.edateText.GetValue()
+
+        self.idText.SetValue("")
+        self.foodText.SetValue("")
+        self.unitText.SetValue("")
+        self.edateText.SetValue("")
+
+        if (id != ""):
+            insertRow(conn, id, food, unit, edate)
+
+        self.GetParent().GetParent().refreshGrid()
