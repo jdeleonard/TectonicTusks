@@ -9,6 +9,8 @@ class InventoryStatus(Enum):
     HIGH = 3
 
 
+
+
 class OrderPanel(wx.Panel):
 
     def __init__(self, *args, **kw):
@@ -39,7 +41,6 @@ class OrderPanel(wx.Panel):
         hbox.Add(spacer, proportion=1, flag=wx.ALL|wx.EXPAND, border=15)
         self.SetSizer(hbox)
 
-        #self.Bind(wx.EVT_BUTTON, OrderButton.OnButtonClicked, button1)
         #self.Bind(wx.EVT_BUTTON, OrderButton.OnButtonClicked, button1)
 
 
@@ -74,3 +75,18 @@ class OrderButton(wx.Button):
     # Updates the inventory status for the given items
     def getInventoryStatus(self):
         print("Placeholder, will complete later")
+
+
+
+
+
+class OrderFrame(wx.Frame):
+
+    def __init__(self, *args, **kw):
+         super(OrderFrame, self).__init__(*args, **kw)
+         self.InitUI()
+
+    def InitUI(self):
+        panel = OrderPanel(self)
+        self.SetTitle('Take Orders')
+        self.Centre()

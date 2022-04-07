@@ -8,7 +8,7 @@ from db_functions import *
 from InventoryGrid import *
 from Panels import *
 from Frames import *
-
+from OrderPanel import *
 
 
 class MainForm(wx.Frame):
@@ -18,14 +18,18 @@ class MainForm(wx.Frame):
         wx.Frame.__init__(self, parent=None, title="Inventory Sheet", size=(1000,800))
 
         self.invent_panel = InventoryPanel(self)
+
         self.insert_panel = InsertionPanel(self)
-        
         self.insert_panel.Hide()
+
+        self.order_panel = OrderPanel(self)
+        self.order_panel.Hide()
 
 
         self.sizer = wx.BoxSizer(wx.VERTICAL)
         self.sizer.Add(self.invent_panel, 1, wx.EXPAND)
         self.sizer.Add(self.insert_panel, 1, wx.EXPAND)
+        self.sizer.Add(self.order_panel, 1, wx.EXPAND)
         self.SetSizer(self.sizer)
 
 
@@ -43,6 +47,9 @@ class MainForm(wx.Frame):
         deleteItem = fileMenu.Append(wx.ID_ANY, "Delete Item", "")
         self.Bind(wx.EVT_MENU, self.deleteItem, deleteItem)
 
+        orderItem = fileMenu.Append(wx.ID_ANY, "Take Orders", "")
+        self.Bind(wx.EVT_MENU, self.takeOrders, orderItem)
+
         quitItem = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit')
         fileMenu.Append(quitItem)
 
@@ -58,7 +65,7 @@ class MainForm(wx.Frame):
 
     def OnQuit(self, e):
         self.Close()
-    
+
     def onSwitchPanels(self, event):
         if self.invent_panel.IsShown():
             self.SetTitle("Insert New Item")
@@ -90,6 +97,16 @@ class MainForm(wx.Frame):
     def onInsertNewItem(self, event):
         insertFrame = InsertionFrame(self)
         insertFrame.Show()
+
+
+    # Activates from clicking "Take Orders" on the file menu... file->Take Orders
+    def takeOrders(self, event):
+        orderFrame = OrderFrame(self)
+        orderFrame.Show()
+
+
+
+
 
 class deleteFrame(wx.Frame):
     def __init__(self):
