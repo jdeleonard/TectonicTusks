@@ -1,7 +1,9 @@
 import sqlite3
+import datetime
+import time
 
 
-def opendb(dbFile): 
+def opendb(dbFile):
 
     conn = None
     try:
@@ -19,7 +21,7 @@ def deleteItemSQL(conn, id):
     conn.commit()
 
 def getNumOfRows(conn):
-    
+
     cursor = conn.cursor()
     query = "SELECT COUNT(*) FROM food"
     cursor.execute(query)
@@ -53,3 +55,11 @@ def updateRow(conn, id, amount):
     query = "UPDATE food SET amount=? where id=?"
     cursor.execute(query, (amount, id))
     conn.commit()
+
+
+
+
+def getExpireDate(conn, id):
+    cursor = conn.cursor()
+    query = "SELECT expires FROM food WHERE id=?"
+    return cursor.fetchone()[0]
