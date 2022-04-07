@@ -40,6 +40,8 @@ class MainForm(wx.Frame):
         insertItem = fileMenu.Append(wx.ID_ANY, "Insert New Item", "")
         self.Bind(wx.EVT_MENU, self.onInsertNewItem, insertItem)
 
+        deleteItem = fileMenu.Append(wx.ID_ANY, "Delete Item", "")
+        self.Bind(wx.EVT_MENU, self.deleteItem, deleteItem)
 
         quitItem = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit')
         fileMenu.Append(quitItem)
@@ -50,7 +52,9 @@ class MainForm(wx.Frame):
 
         self.SetMenuBar(menubar)
 
-
+    def deleteItem(self, event):
+        framer = deleteFrame()
+        self.Show()
 
     def OnQuit(self, e):
         self.Close()
@@ -75,7 +79,6 @@ class MainForm(wx.Frame):
 
         self.Layout()
 
-
     def refreshGrid(self):
         self.invent_panel.Destroy()
         self.invent_panel = InventoryPanel(self)
@@ -88,7 +91,19 @@ class MainForm(wx.Frame):
         insertFrame = InsertionFrame(self)
         insertFrame.Show()
 
-
+class deleteFrame(wx.Frame):
+    def __init__(self):
+        wx.Frame.__init__(self, parent=None, title="Delete Window", size=(300, 100))
+        panel = wx.Panel(self)
+        conn = opendb("food.db")
+        temp = wx.TextEntryDialog(None, "Enter Item ID to Delete:", "Delete Options", "Item ID")
+        if temp.ShowModal() == wx.ID_OK:
+            deleteID = temp.GetValue()
+            print(deleteID)
+            deleteItemSQL(conn, deleteID)
+            self.Close(True)
+        else:
+            self.Close(True)
 
 
 
