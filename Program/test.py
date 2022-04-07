@@ -51,37 +51,12 @@ class MyGrid(wxgrid.Grid):
                 self.SetCellValue(r,c, str(rows[r][c]))
 
     
-class PastFoodGrid(wxgrid.Grid):
 
-    def __init__ (self, parent):
 
-        wxgrid.Grid.__init__(self, parent)
-        conn = opendb("food.db")
 
         
-class PastFoodPanel(wx.Panel):
-    def __init__(self, parent):
-        wx.Panel.__init__(self, parent=parent)
-
-        dateLabel = wx.StaticText(self, -1, "Date: ")
-        self.dateText = wx.TextCtrl(self, -1)
-
-        button = wx.Button(self, label="Get Inventory", size=(100,50))
-        self.Bind(wx.EVT_BUTTON, self.displayPast, button)
-
-        sizer = wx.FlexGridSizer(cols=2, hgap=6, vgap=6)
-        sizer.AddMany([dateLabel,self.dateText,button])
-
-        self.SetSizer(sizer)
 
 
-    def displayPast(self, event, parent):
-        print(self.dateText.GetValue())
-        #wx.Panel.__init__(self, parent=parent)
-        #myGrid = MyGrid(self)
-        #sizer = wx.BoxSizer(wx.HORIZONTAL)
-        #sizer.Add(myGrid, 1)
-        #self.SetSizer(sizer)
 
         
 class PanelOne(wx.Panel):
@@ -139,8 +114,100 @@ class PanelTwo(wx.Panel):
 
         self.GetParent().GetParent().refr()
 
+#########################################
+# PAST FOOD CLASSES AND FUNCTIONS
+class PastFoodFrame(wx.Frame):
+
+    def __init__(self, parent):
+
+        self.date = ""
+
+        wx.Frame.__init__(self, parent, title = "Get Past Inventory", size = (700,700))
+        self.past_date_panel = PastDatePanel(self)
+        #self.past_food_panel = PastFoodPanel(self)
+        
+
+        #self.past_food_panel.Hide()
+        self.past_date_panel.Show()
+        
+
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
+        self.sizer.Add(self.past_date_panel, 1, wx.EXPAND)
+        #self.sizer.Add(self.past_food_panel, 1, wx.EXPAND)
+        self.SetSizer(self.sizer)
+
+    def displayPastGrid(self, today):
+        self.date = today
+        self.past_date_panel.Hide()
+
+        # Create and show the PastFoodPanel
+        self.past_food_panel = PastFoodPanel(self)
+        self.sizer.Add(self.past_food_panel, 1, wx.EXPAND)
+        self.SetSizer(self.sizer)
+        self.past_food_panel.Show()
 
 
+
+class PastDatePanel(wx.Panel):
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent=parent)
+
+        dateLabel = wx.StaticText(self, -1, "Date: ")
+        self.dateText = wx.TextCtrl(self, -1)
+
+        button = wx.Button(self, label="Get Inventory", size=(100,50))
+        self.Bind(wx.EVT_BUTTON, self.displayPast, button)
+
+        sizer = wx.FlexGridSizer(cols=2, hgap=6, vgap=6)
+        sizer.AddMany([dateLabel,self.dateText,button])
+
+        self.SetSizer(sizer)
+
+    def displayPast(self, event):
+        date2 = self.dateText.GetValue()
+        self.dateText.SetValue("")
+        self.GetParent().displayPastGrid(date2)
+
+
+
+
+class PastFoodPanel(wx.Panel):
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent=parent)
+        pastGrid = PastFoodGrid(self)
+        sizer = wx.BoxSizer(wx.HORIZONTAL)
+        sizer.Add(pastGrid, 1)
+        self.SetSizer(sizer)
+
+
+class PastFoodGrid(wxgrid.Grid):
+
+    def __init__ (self, parent):
+
+        wxgrid.Grid.__init__(self, parent)
+        conn = opendb("food.db")
+
+        date = self.GetParent().GetParent().date
+
+        rows = getAllRowsPastFood(conn, date)
+
+        numRows = getNumOfRowsPastFood(conn, date)
+
+        self.CreateGrid(numRows, 4)
+
+        self.SetColLabelValue(0, "ID")
+        self.SetColLabelValue(1, "Food")
+        self.SetColLabelValue(2, "Amount")
+        self.SetColLabelValue(3, "Date")
+
+    
+        for r in range(numRows):
+            for c in range(4):
+                self.SetCellValue(r,c, str(rows[r][c]))
+
+
+
+##########################################
         
 class InsertFrame(wx.Frame):
     def __init__(self, parent):
@@ -187,6 +254,10 @@ class MyForm(wx.Frame):
         frame2 = InsertFrame(self)
         frame2.Show()
 
+    def onPastFoodClick(self, event):
+        pastFoodFrame = PastFoodFrame(self)
+        pastFoodFrame.Show()
+
     def onSaveForDay(self, event):
         conn = opendb("food.db")
         saveFoodForDay(conn)
@@ -199,16 +270,16 @@ class MyForm(wx.Frame):
 
         self.panel_one = PanelOne(self)
         self.panel_two = PanelTwo(self)
-        self.past_panel = PastFoodPanel(self)
+        #self.past_panel = PastFoodPanel(self)
         
         self.panel_two.Hide()
-        self.past_panel.Hide()
+        #self.past_panel.Hide()
 
 
         self.sizer = wx.BoxSizer(wx.VERTICAL)
         self.sizer.Add(self.panel_one, 1, wx.EXPAND)
         self.sizer.Add(self.panel_two, 1, wx.EXPAND)
-        self.sizer.Add(self.past_panel, 1, wx.EXPAND)
+        #self.sizer.Add(self.past_panel, 1, wx.EXPAND)
         self.SetSizer(self.sizer)
 
         # menubar = wx.MenuBar()
@@ -235,7 +306,10 @@ class MyForm(wx.Frame):
         insertItem = fileMenu.Append(wx.ID_ANY, "Insert New Item", "")
         self.Bind(wx.EVT_MENU, self.onInsertNewItem, insertItem)
 
-    
+        pastFoodItem = fileMenu.Append(wx.ID_ANY, "Past Inventory", "")
+        self.Bind(wx.EVT_MENU, self.onPastFoodClick, pastFoodItem)
+
+
         quitItem = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit')
         fileMenu.Append(quitItem)
         self.Bind(wx.EVT_MENU, self.OnQuit, quitItem)
@@ -254,13 +328,6 @@ class MyForm(wx.Frame):
         self.SetMenuBar(menubar)
         # self.SetSize((350, 250))
         # self.Centre()
-
-
-    def OnCloseMe(self, event):
-        self.Close(True)
-
-    def OnCloseWindow(self, event):
-        self.Destroy() 
 
 
 

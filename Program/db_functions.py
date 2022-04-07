@@ -79,11 +79,16 @@ def insertFoodBackupsForDay(conn, list):
         cursor.execute(query, (today, food_id, name, amount))
         conn.commit()
 
-
-
-def getNumOfRowsPastFood(conn):
+def getAllRowsPastFood(conn, date):
     cursor = conn.cursor()
-    query = "SELECT COUNT(*) FROM past_food"
+    query = "SELECT food_id, name, amount, date FROM past_food WHERE date='{}'".format(date)
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    return rows
+
+def getNumOfRowsPastFood(conn, date):
+    cursor = conn.cursor()
+    query = "SELECT COUNT(*) FROM past_food WHERE date='{}'".format(date)
     cursor.execute(query)
     numRowsList = cursor.fetchall()
 
