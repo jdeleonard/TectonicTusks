@@ -186,24 +186,28 @@ class PastFoodGrid(wxgrid.Grid):
 
         wxgrid.Grid.__init__(self, parent)
         conn = opendb("food.db")
-
         date = self.GetParent().GetParent().date
-
-        rows = getAllRowsPastFood(conn, date)
 
         numRows = getNumOfRowsPastFood(conn, date)
 
-        self.CreateGrid(numRows, 4)
+        if (numRows > 0):
+            
+            rows = getAllRowsPastFood(conn, date)
 
-        self.SetColLabelValue(0, "ID")
-        self.SetColLabelValue(1, "Food")
-        self.SetColLabelValue(2, "Amount")
-        self.SetColLabelValue(3, "Date")
+            self.CreateGrid(numRows, 4)
+
+            self.SetColLabelValue(0, "ID")
+            self.SetColLabelValue(1, "Food")
+            self.SetColLabelValue(2, "Amount")
+            self.SetColLabelValue(3, "Date")
 
     
-        for r in range(numRows):
-            for c in range(4):
-                self.SetCellValue(r,c, str(rows[r][c]))
+            for r in range(numRows):
+                for c in range(4):
+                    self.SetCellValue(r,c, str(rows[r][c]))
+
+        else:
+            errorLabel = wx.StaticText(self, -1, "No Posts found from {}".format(date))
 
 
 
