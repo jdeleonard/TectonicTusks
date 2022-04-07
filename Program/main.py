@@ -116,7 +116,6 @@ class deleteFrame(wx.Frame):
         temp = wx.TextEntryDialog(None, "Enter Item ID to Delete:", "Delete Options", "Item ID")
         if temp.ShowModal() == wx.ID_OK:
             deleteID = temp.GetValue()
-            print(deleteID)
             deleteItemSQL(conn, deleteID)
             self.Close(True)
         else:
