@@ -60,7 +60,7 @@ class MainForm(wx.Frame):
         self.SetMenuBar(menubar)
 
     def deleteItem(self, event):
-        framer = deleteFrame()
+        framer = deleteFrame(self)
         self.Show()
 
     def OnQuit(self, e):
@@ -109,8 +109,8 @@ class MainForm(wx.Frame):
 
 
 class deleteFrame(wx.Frame):
-    def __init__(self):
-        wx.Frame.__init__(self, parent=None, title="Delete Window", size=(300, 100))
+    def __init__(self, parent):
+        wx.Frame.__init__(self, parent=parent, title="Delete Window", size=(300, 100))
         panel = wx.Panel(self)
         conn = opendb("food.db")
         temp = wx.TextEntryDialog(None, "Enter Item ID to Delete:", "Delete Options", "Item ID")
@@ -118,6 +118,8 @@ class deleteFrame(wx.Frame):
             deleteID = temp.GetValue()
             deleteItemSQL(conn, deleteID)
             self.Close(True)
+            self.GetParent().refreshGrid()
+
         else:
             self.Close(True)
 
