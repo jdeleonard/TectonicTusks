@@ -3,6 +3,9 @@ from enum import Enum
 from db_functions import *
 import datetime
 import time
+from Recipies import *
+
+
 
 class InventoryStatus(Enum):
     OUT = 0
@@ -24,7 +27,8 @@ class OrderPanel(wx.Panel):
         hbox = wx.BoxSizer(wx.HORIZONTAL)
         spacer = wx.FlexGridSizer(2, 3, 20, 50)
 
-        buttonTacos = OrderButton(self, label='Tacos')
+
+        buttonTacos = OrderButton(self, label='Sandwitch')
         buttonPasta = OrderButton(self, label='Pasta')
         buttonHamburger = OrderButton(self, label='Hamburger')
         buttonHotDog = OrderButton(self, label='Hot Dog')
@@ -55,8 +59,15 @@ class OrderButton(wx.Button):
 
     # Activates on button press
     def OnButtonClicked(self, e):
-        if self.food == "Tacos":
-            print("tacos")
+
+        # open database
+        conn = opendb("food.db")
+
+        if self.food == "Sandwitch":
+
+            order(Sandwitch.recipie)
+
+            print("sandwitch")
         elif self.food == "Pasta":
             print("pasta")
         elif self.food == "Hamburger":

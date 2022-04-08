@@ -68,3 +68,10 @@ def getInventoryAmount(conn, id):
     query = "SELECT amount FROM food WHERE id=?"
     cursor.execute(query, (id, ))
     return cursor.fetchone()[0]
+
+# returns id with given name
+def getID(conn, name):
+    cursor = conn.cursor()
+    query = "SELECT id FROM food WHERE name=?"
+    cursor.execute(query, (name, ))
+    return cursor.fetchone()[0]
