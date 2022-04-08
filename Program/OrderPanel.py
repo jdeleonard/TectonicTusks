@@ -64,9 +64,6 @@ class OrderButton(wx.Button):
         conn = opendb("food.db")
 
         if self.food == "Sandwitch":
-
-            order(Sandwitch.recipie)
-
             print("sandwitch")
         elif self.food == "Pasta":
             print("pasta")
