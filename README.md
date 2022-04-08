@@ -19,4 +19,7 @@ Under the 'File' in the menubar, there is also an option to add items to the dat
 Under the 'Save' Menu, there is an option to save, or 'Post', inventory for the day which saves all the current day's inventory counts. These amounts can be retrieved through another button under the 'File' menu.
 
 
+To run this program, run the command 'python main.py' under the 'Program' Directory.
+
+
 Burndown Chart: https://docs.google.com/spreadsheets/d/1g1YuG0IA-uZde09JvNPt-srf_bLGJhO4BVd0jcr1MY4/edit?usp=sharing
