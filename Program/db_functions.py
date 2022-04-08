@@ -71,11 +71,14 @@ def getInventoryAmount(conn, id):
 
 # returns id with given name
 def getID(conn, name):
-    cursor = conn.cursor()
-    query = "SELECT id FROM food WHERE name=?"
-    cursor.execute(query, (name, ))
-    return cursor.fetchone()[0]
-
+    try:
+        cursor = conn.cursor()
+        query = "SELECT id FROM food WHERE name=?"
+        cursor.execute(query, (name, ))
+        return cursor.fetchone()[0]
+    except:
+        print("There is no ",name)
+        return False
 
 
 # Past Food Functions
@@ -98,7 +101,7 @@ def checkForAlreadyPost(conn):
         query = "DELETE FROM past_food where date='{}'".format(today)
         cursor.execute(query)
         conn.commit()
-    
+
 def insertFoodBackupsForDay(conn, list):
     today = date.today()
     checkForAlreadyPost(conn)
@@ -109,7 +112,7 @@ def insertFoodBackupsForDay(conn, list):
         food_id = rows[0]
         name = rows[1]
         amount = rows[2]
-        
+
         cursor.execute(query, (today, food_id, name, amount))
         conn.commit()
 

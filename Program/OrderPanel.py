@@ -27,22 +27,25 @@ class OrderPanel(wx.Panel):
         hbox = wx.BoxSizer(wx.HORIZONTAL)
         spacer = wx.FlexGridSizer(2, 3, 20, 50)
 
+        # Create a button for every recipie
+        buttons = [None]
+        buttons.clear()
+        looper = firstRecipie
+        numItems = Recipies.getNumRecipies()
+        i = 0
 
-        buttonTacos = OrderButton(self, label='Sandwitch')
-        buttonPasta = OrderButton(self, label='Pasta')
-        buttonHamburger = OrderButton(self, label='Hamburger')
-        buttonHotDog = OrderButton(self, label='Hot Dog')
-        buttonSteak = OrderButton(self, label='Steak')
-        buttonSoup = OrderButton(self, label='Soup')
+        # Create all buttons and add them to buttons[]
+        while i < numItems:
+            buttons.append(OrderButton(self, label=looper.name))
+            print(i)
+            looper = looper.next
+            i += 1
 
-        spacer.AddMany([
-        (buttonTacos, 1, wx.EXPAND),
-        (buttonPasta, 1, wx.EXPAND),
-        (buttonHamburger, 2, wx.EXPAND),
-        (buttonHotDog, 1, wx.EXPAND),
-        (buttonSteak, 1, wx.EXPAND),
-        (buttonSoup, 1, wx.EXPAND),
-        ])
+        # Add all buttons to spacer
+        for button in buttons:
+            print(button.food)
+            spacer.Add(button, 1, wx.EXPAND)
+
 
         hbox.Add(spacer, proportion=1, flag=wx.ALL|wx.EXPAND, border=15)
         self.SetSizer(hbox)
