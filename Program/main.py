@@ -1,6 +1,7 @@
 import wx
 import wx.grid as wxgrid
 import sqlite3
+import datetime
 
 import globals
 
@@ -9,6 +10,7 @@ from InventoryGrid import *
 from Panels import *
 from Frames import *
 from OrderPanel import *
+from PastFood import *
 
 
 class MainForm(wx.Frame):
@@ -40,7 +42,6 @@ class MainForm(wx.Frame):
         switchItem = fileMenu.Append(wx.ID_ANY, "Switch Panels", "")
         self.Bind(wx.EVT_MENU, self.onSwitchPanels, switchItem)
 
-
         insertItem = fileMenu.Append(wx.ID_ANY, "Insert New Item", "")
         self.Bind(wx.EVT_MENU, self.onInsertNewItem, insertItem)
 
@@ -50,12 +51,24 @@ class MainForm(wx.Frame):
         orderItem = fileMenu.Append(wx.ID_ANY, "Take Orders", "")
         self.Bind(wx.EVT_MENU, self.takeOrders, orderItem)
 
+        pastFoodItem = fileMenu.Append(wx.ID_ANY, "Past Inventory", "")
+        self.Bind(wx.EVT_MENU, self.onPastFoodClick, pastFoodItem)
+
         quitItem = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit')
         fileMenu.Append(quitItem)
-
         self.Bind(wx.EVT_MENU, self.OnQuit, quitItem)
 
+
+        # 'Save' Dropdown in Menu
+        saveMenu = wx.Menu()
+
+        saveForDayItem = saveMenu.Append(wx.ID_ANY, "Post Inventory for Day", "")
+        self.Bind(wx.EVT_MENU, self.onSaveForDay, saveForDayItem)
+        
+
+
         menubar.Append(fileMenu, '&File')
+        menubar.Append(saveMenu, '&Save')
 
         self.SetMenuBar(menubar)
 
@@ -97,6 +110,15 @@ class MainForm(wx.Frame):
     def onInsertNewItem(self, event):
         insertFrame = InsertionFrame(self)
         insertFrame.Show()
+
+    def onPastFoodClick(self, event):
+        pastFoodFrame = PastFoodFrame(self)
+        pastFoodFrame.Show()
+
+    def onSaveForDay(self, event):
+        conn = opendb("food.db")
+        saveFoodForDay(conn)
+
 
 
     # Activates from clicking "Take Orders" on the file menu... file->Take Orders

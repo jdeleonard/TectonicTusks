@@ -1,6 +1,6 @@
 import sqlite3
-import datetime
 import time
+from datetime import date
 
 
 def opendb(dbFile):
@@ -75,3 +75,58 @@ def getID(conn, name):
     query = "SELECT id FROM food WHERE name=?"
     cursor.execute(query, (name, ))
     return cursor.fetchone()[0]
+
+
+
+# Past Food Functions
+
+def saveFoodForDay(conn):
+    cursor = conn.cursor()
+    query = "SELECT id, name, amount FROM food"
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    insertFoodBackupsForDay(conn, rows)
+
+def checkForAlreadyPost(conn):
+    today = date.today()
+    cursor = conn.cursor()
+    query = "SELECT * FROM past_food where date='{}'".format(today)
+    cursor.execute(query)
+    rows = cursor.fetchall()
+
+    if (len(rows) > 0):
+        query = "DELETE FROM past_food where date='{}'".format(today)
+        cursor.execute(query)
+        conn.commit()
+    
+def insertFoodBackupsForDay(conn, list):
+    today = date.today()
+    checkForAlreadyPost(conn)
+    cursor = conn.cursor()
+    query = "INSERT INTO past_food (date, food_id, name, amount) VALUES(?, ?, ?, ?)"
+
+    for rows in list:
+        food_id = rows[0]
+        name = rows[1]
+        amount = rows[2]
+        
+        cursor.execute(query, (today, food_id, name, amount))
+        conn.commit()
+
+def getAllRowsPastFood(conn, date):
+    cursor = conn.cursor()
+    query = "SELECT food_id, name, amount, date FROM past_food WHERE date='{}'".format(date)
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    return rows
+
+def getNumOfRowsPastFood(conn, date):
+    cursor = conn.cursor()
+    query = "SELECT COUNT(*) FROM past_food WHERE date='{}'".format(date)
+    cursor.execute(query)
+    numRowsList = cursor.fetchall()
+
+    for row in numRowsList:
+        for r in row:
+            numRows = r
+    return numRows
