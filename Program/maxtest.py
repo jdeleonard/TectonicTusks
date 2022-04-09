@@ -26,7 +26,7 @@ if __name__ == '__main__':
     mango4.printRecipieNode()
     print()
 
-    mango5 = Recipies.addRecipie("Steak", {5:2 , 9:6, 16:1})
+    mango5 = Recipies.addRecipie("Steak", {1:2 , 3:6, 123:1000})
     mango5.printRecipieNode()
     print()
 
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     print(r.checkAvailability())
 
 
-    #app = wx.App()
-    #ex = OrderFrame(None)
-    #ex.Show()
-    #app.MainLoop()
+    app = wx.App()
+    ex = OrderFrame(None)
+    ex.Show()
+    app.MainLoop()

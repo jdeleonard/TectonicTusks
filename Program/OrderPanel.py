@@ -56,7 +56,6 @@ class OrderPanel(wx.Panel):
         hbox.Add(spacer, proportion=1, flag=wx.ALL|wx.EXPAND, border=15)
         self.SetSizer(hbox)
 
-        #self.Bind(wx.EVT_BUTTON, OrderButton.OnButtonClicked, button1)
 
 
 class OrderButton(wx.Button):
@@ -70,37 +69,24 @@ class OrderButton(wx.Button):
         self.food = self.GetLabel()
         self.recipie = Recipies.searchRecipie(self.GetLabel())
 
+        # Update button appearance if can't be ordered
+        self.updateStatus()
+
     # Activates on button press
     def OnButtonClicked(self, e):
 
         # open database
         conn = opendb("food.db")
 
-        if self.food == "Sandwitch":
-            print("sandwitch")
-        elif self.food == "Pasta":
-            print("pasta")
-        elif self.food == "Hamburger":
-            print("hamburger")
-        elif self.food == "Hot Dog":
-            print("hot dog")
-        elif self.food == "Steak":
-            print("steak")
-        elif self.food == "Soup":
-            print("soup")
-        else:
-            print("ERROR: ADD BUTTON LABEL TO: OrderButton OnButtonClicked()")
+        print(self.recipie.name)
 
     # Updates button appearance based on inventory
     def updateStatus(self):
-        print("Placeholder, will complete later")
 
-    # Updates the inventory status for the given items
-    def updateInventoryStatus(self):
-        print("Placeholder, will complete later")
+        valid = self.recipie.checkAvailability()
 
-
-
+        if not valid:
+            self.Disable()
 
 
 class OrderFrame(wx.Frame):
