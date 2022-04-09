@@ -98,11 +98,51 @@ class Recipies:
         return None
 
 
+    # Searches through all the items ingredients to make sure they're in the inventory
+    def checkIfPresent(self):
+
+        # Set up return variable
+        present = True
+
+        # Loop through all the recipies ingredients
+        for item in self.ingredients:
+            if checkID(opendb("food.db"), item) == False:
+                present = False
+
+        # Return value
+        return present
+
+
+    # Searches through all the items ingredients to make sure there's enough of the ingredient to produce
+    def checkAvailability(self):
+
+        # make sure all the items are present in the database
+        if self.checkIfPresent():
+
+            # Check to make sure there is enough inventory for each item
+            for item in self.ingredients:
+
+                # get total amount of inventory for the given food item
+                totInventory = getInventoryAmount(opendb("food.db"), item)
+
+                # If there isn't enough inventory to produce item, return false
+                if totInventory - self.ingredients[item] < 0:
+                    return False
+
+            # Enough inventory to produce item, return True 
+            return True
+
+        # Not all items are present in the inventory
+        else:
+            return False
+
+
     # Prints the node's name and ingredients, used for debugging
     def printRecipieNode(self):
         print(self.name, " ingredients: ")
         for item in self.ingredients:
             print("Item: ", item, "  Amount: ", self.ingredients[item])
+
 
 
 

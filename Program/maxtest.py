@@ -10,7 +10,7 @@ if __name__ == '__main__':
     breadID = getID(conn, "Bread")
     print(breadID)
 
-    mango = Recipies.addRecipie("Pasta", {1:2, 5:3})
+    mango = Recipies.addRecipie("Pasta", {1:2, 2:40})
     mango.printRecipieNode()
     print()
 
@@ -22,7 +22,7 @@ if __name__ == '__main__':
     mango3.printRecipieNode()
     print()
 
-    mango4 = Recipies.addRecipie("Sandwitch", {4:1})
+    mango4 = Recipies.addRecipie("Sandwitch", {20:2, 3:1})
     mango4.printRecipieNode()
     print()
 
@@ -51,10 +51,11 @@ if __name__ == '__main__':
     mango10.printRecipieNode()
     print()
 
-    Recipies.searchRecipie("Duck")
+    r = Recipies.searchRecipie("Pasta")
+    print(r.checkAvailability())
 
 
-    app = wx.App()
-    ex = OrderFrame(None)
-    ex.Show()
-    app.MainLoop()
+    #app = wx.App()
+    #ex = OrderFrame(None)
+    #ex.Show()
+    #app.MainLoop()

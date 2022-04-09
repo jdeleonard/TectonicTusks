@@ -81,6 +81,14 @@ def getID(conn, name):
         return False
 
 
+# returns boolean for if the id is present or not, true if present, false if not present
+def checkID(conn, id):
+    cursor = conn.cursor()
+    query = "SELECT EXISTS (SELECT amount FROM food WHERE id=?)"
+    cursor.execute(query, (id, ))
+    return bool(cursor.fetchone()[0])
+
+
 # Past Food Functions
 
 def saveFoodForDay(conn):
