@@ -44,6 +44,7 @@ class Recipies:
         # return the total amount of recipies in the list
         return count
 
+
     # Adds a recipie to the end of the linked list (Recipie), returnns added item (only used if needed)
     # takes: String name, Dictionary (see above format) ingredients
     def addRecipie(name, ingredients):
@@ -72,6 +73,24 @@ class Recipies:
 
         # return the node added
         return recipieAdded
+
+
+    # Searches data structure for node that contains the inputed name, returns that node
+    def searchRecipie(name):
+
+        # set up variable for returning and looping
+        found = firstRecipie
+
+        # loop through linked list (Recipie) and return once the name is found
+        while found.next != None:
+            if found.name == name:
+                return found
+            found = found.next
+
+        # not found, print a message and return None
+        print("NOT FOUND", name, "NOT FOUND")
+        return None
+
 
     # Prints the node's name and ingredients, used for debugging
     def printRecipieNode(self):
