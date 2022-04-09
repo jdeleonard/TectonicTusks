@@ -34,6 +34,23 @@ if __name__ == '__main__':
     mango6.printRecipieNode()
     print()
 
+    mango7 = Recipies.addRecipie("Backpack", {3:3 , 9:7, 20:8})
+    mango7.printRecipieNode()
+    print()
+
+    mango8 = Recipies.addRecipie("Horse", {3:3 , 9:7, 20:8})
+    mango8.printRecipieNode()
+    print()
+
+
+    mango9 = Recipies.addRecipie("Pond", {3:3 , 9:7, 20:8})
+    mango7.printRecipieNode()
+    print()
+
+    mango10 = Recipies.addRecipie("Duck", {3:3 , 9:7, 20:8})
+    mango8.printRecipieNode()
+    print()
+
     print(Recipies.getNumRecipies())
 
 

@@ -23,9 +23,6 @@ class OrderPanel(wx.Panel):
         self.InitUI()
 
     def InitUI(self):
-        # create buttons and display them
-        hbox = wx.BoxSizer(wx.HORIZONTAL)
-        spacer = wx.FlexGridSizer(2, 3, 20, 50)
 
         # Create a button for every recipie
         buttons = [None]
@@ -33,6 +30,17 @@ class OrderPanel(wx.Panel):
         looper = firstRecipie
         numItems = Recipies.getNumRecipies()
         i = 0
+
+
+
+
+        # create sizers so panel looks pretty
+        numRows = numItems / 3
+        if numItems % numRows != 0:
+            numRows += 1
+
+        hbox = wx.BoxSizer(wx.HORIZONTAL)
+        spacer = wx.FlexGridSizer(numRows, 3, 20, 50)
 
         # Create all buttons and add them to buttons[]
         while i < numItems:
@@ -42,9 +50,16 @@ class OrderPanel(wx.Panel):
             i += 1
 
         # Add all buttons to spacer
+        i = 0
         for button in buttons:
             print(button.food)
             spacer.Add(button, 1, wx.EXPAND)
+            i += 1
+
+        # Fill in blank spaces
+        #while i < 3 * numRows:
+        #    spacer.Add(wx.StaticText(self), wx.EXPAND)
+        #    i += 1
 
 
         hbox.Add(spacer, proportion=1, flag=wx.ALL|wx.EXPAND, border=15)
