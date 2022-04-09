@@ -31,9 +31,6 @@ class OrderPanel(wx.Panel):
         numItems = Recipies.getNumRecipies()
         i = 0
 
-
-
-
         # create sizers so panel looks pretty
         numRows = numItems / 3
         if numItems % numRows != 0:
@@ -45,23 +42,17 @@ class OrderPanel(wx.Panel):
         # Create all buttons and add them to buttons[]
         while i < numItems:
             buttons.append(OrderButton(self, label=looper.name))
-            print(i)
             looper = looper.next
             i += 1
 
         # Add all buttons to spacer
         i = 0
         for button in buttons:
-            print(button.food)
             spacer.Add(button, 1, wx.EXPAND)
             i += 1
 
-        # Fill in blank spaces
-        #while i < 3 * numRows:
-        #    spacer.Add(wx.StaticText(self), wx.EXPAND)
-        #    i += 1
 
-
+        # Set a border for the window
         hbox.Add(spacer, proportion=1, flag=wx.ALL|wx.EXPAND, border=15)
         self.SetSizer(hbox)
 
@@ -71,9 +62,13 @@ class OrderPanel(wx.Panel):
 class OrderButton(wx.Button):
 
     def __init__(self, *args, **kw):
+        # Construct Button
         super(OrderButton, self).__init__(*args, **kw)
         self.Bind(wx.EVT_BUTTON, self.OnButtonClicked)
+
+        # Set member variables food to string and recipie to the node in the recipies
         self.food = self.GetLabel()
+        self.recipie = Recipies.searchRecipie(self.GetLabel())
 
     # Activates on button press
     def OnButtonClicked(self, e):

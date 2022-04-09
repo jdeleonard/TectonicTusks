@@ -54,7 +54,7 @@ if __name__ == '__main__':
     Recipies.searchRecipie("Duck")
 
 
-    #app = wx.App()
-    #ex = OrderFrame(None)
-    #ex.Show()
-    #app.MainLoop()
+    app = wx.App()
+    ex = OrderFrame(None)
+    ex.Show()
+    app.MainLoop()
