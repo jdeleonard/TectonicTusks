@@ -44,17 +44,17 @@ if __name__ == '__main__':
 
 
     mango9 = Recipies.addRecipie("Pond", {3:3 , 9:7, 20:8})
-    mango7.printRecipieNode()
+    mango9.printRecipieNode()
     print()
 
     mango10 = Recipies.addRecipie("Duck", {3:3 , 9:7, 20:8})
-    mango8.printRecipieNode()
+    mango10.printRecipieNode()
     print()
 
-    print(Recipies.getNumRecipies())
+    Recipies.searchRecipie("Duck")
 
 
-    app = wx.App()
-    ex = OrderFrame(None)
-    ex.Show()
-    app.MainLoop()
+    #app = wx.App()
+    #ex = OrderFrame(None)
+    #ex.Show()
+    #app.MainLoop()

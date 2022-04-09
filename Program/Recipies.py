@@ -81,14 +81,20 @@ class Recipies:
         # set up variable for returning and looping
         found = firstRecipie
 
+        i = 0
+
         # loop through linked list (Recipie) and return once the name is found
-        while found.next != None:
+        while i < Recipies.getNumRecipies():
+
             if found.name == name:
                 return found
             found = found.next
+            i += 1
 
         # not found, print a message and return None
         print("NOT FOUND", name, "NOT FOUND")
+        print("Iterated", i, "times.")
+
         return None
 
 
