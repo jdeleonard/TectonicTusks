@@ -15,14 +15,15 @@ if __name__ == '__main__':
     mango.printRecipieNode()
     print()
 
-    mango2 = Recipies.addRecipie("Fish", {3:10, 4:3})
+    mango2 = Recipies.addRecipie("Fish", {3:10, 40:3})
     mango2.printRecipieNode()
     print()
 
-    mango3 = Recipies.addRecipie("Chicken Rice", {9:0.5, 3: 1})
+    mango3 = Recipies.addRecipie("Chicken Rice", {9:0.5})
     mango3.printRecipieNode()
     print()
 
+    mango4 = Recipies.addRecipie("Fruit Rice", {9:0.3, 4: 1})
 
 
     r = Recipies.searchRecipie("Pasta")

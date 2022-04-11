@@ -99,8 +99,10 @@ class OrderButton(wx.Button):
             # item ingredient is expired, disable button
             if lowestDifference < 0:
                 self.Disable()
+                
+            # Item is going to be expiring soon, days till expiration is defined by SELL_FAST_EXPIRING_DAYS in globals.py
             elif lowestDifference <= SELL_FAST_EXPIRING_DAYS:
-                print("EXPIRING SOON!")
+                self.SetBackgroundColour((215, 252, 3, 255))
 
 
 
