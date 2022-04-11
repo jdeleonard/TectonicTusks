@@ -122,3 +122,18 @@ Effort Estimation: 4-6 hours <br><br>
 Acceptance Test: We will have two people trying to update the system at once, and see how quickly information is updating <br><br><br>
 
 ----------------
+
+5.1: Food Entering <br><br>
+
+As a restaurant employee, I want to be able to enter food into the system and dynamically change the amount of inventory. <br><br>
+
+Elaboration: A user should be able to click a button and it subtract from the inventory counts based on the item clicked. <br><br>
+
+Constraints: None <br><br>
+
+Effor Estimation: 5-6 hours <br><br>
+
+Acceptance Test: We will manually calculate how much food should be used based on an item click, we will click the item and check by how much the inventory was lowered. <br><br><br>
+
+-----------------
+
