@@ -4,7 +4,7 @@ from db_functions import *
 import datetime
 import time
 from Recipies import *
-
+from globals import *
 
 
 class InventoryStatus(Enum):
@@ -83,10 +83,28 @@ class OrderButton(wx.Button):
     # Updates button appearance based on inventory
     def updateStatus(self):
 
+        # checks to make sure all all the ingredients are in the inventory and are enough in quanitity to make the item
         valid = self.recipie.checkAvailability()
 
+        # item has at least one ingredient not in the inventory or at least one item that doesn't have enough inventory to produce item, disable button
         if not valid:
             self.Disable()
+
+        # all of items ingredients are in the inventory and enough in stock
+        else:
+
+            # get the amount of days until the items soonest expiration date
+            lowestDifference = self.recipie.getLowestDaysTillExperation()
+
+            # item ingredient is expired, disable button
+            if lowestDifference < 0:
+                self.Disable()
+            elif lowestDifference <= SELL_FAST_EXPIRING_DAYS:
+                print("EXPIRING SOON!")
+
+
+
+
 
 
 class OrderFrame(wx.Frame):

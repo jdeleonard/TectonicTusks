@@ -1,5 +1,6 @@
 from db_functions import *
-
+from datetime import datetime
+from datetime import date
 
 
 # Recipies Data Structure:
@@ -129,13 +130,39 @@ class Recipies:
                 if totInventory - self.ingredients[item] < 0:
                     return False
 
-            # Enough inventory to produce item, return True 
+            # Enough inventory to produce item, return True
             return True
 
         # Not all items are present in the inventory
         else:
             return False
 
+
+    # returns the amount of days till the expiration on the item expiring the soonest
+    def getLowestDaysTillExperation(self) -> int:
+
+        today = date.today()
+
+        dayDiff = [0]
+        dayDiff.clear()
+
+        # get the lowest expiration date from all of ingredients
+        for item in self.ingredients:
+            expireDateString = getExpireDate(opendb("food.db"), item)
+            expireDate = datetime.strptime(expireDateString, '%Y-%m-%d').date()
+            daydifference = (expireDate - today).days
+            dayDiff.append(daydifference)
+
+        if dayDiff:
+            lowestDifference = dayDiff[0]
+
+            for diff in dayDiff:
+                if diff < lowestDifference:
+                    lowestDifference = diff
+
+            return lowestDifference
+
+        return -1
 
     # Prints the node's name and ingredients, used for debugging
     def printRecipieNode(self):

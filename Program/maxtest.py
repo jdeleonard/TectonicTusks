@@ -1,7 +1,8 @@
 from db_functions import *
 from Recipies import *
 from OrderPanel import *
-
+from datetime import datetime
+from datetime import date
 
 if __name__ == '__main__':
 
@@ -18,41 +19,20 @@ if __name__ == '__main__':
     mango2.printRecipieNode()
     print()
 
-    mango3 = Recipies.addRecipie("Hamburger", {5:2 , 9:6, 16:1})
+    mango3 = Recipies.addRecipie("Chicken Rice", {9:0.5, 3: 1})
     mango3.printRecipieNode()
     print()
 
-    mango4 = Recipies.addRecipie("Sandwitch", {20:2, 3:1})
-    mango4.printRecipieNode()
-    print()
 
-    mango5 = Recipies.addRecipie("Steak", {1:2 , 3:6, 123:1000})
-    mango5.printRecipieNode()
-    print()
-
-    mango6 = Recipies.addRecipie("Soup", {5:2 , 9:7})
-    mango6.printRecipieNode()
-    print()
-
-    mango7 = Recipies.addRecipie("Backpack", {3:3 , 9:7, 20:8})
-    mango7.printRecipieNode()
-    print()
-
-    mango8 = Recipies.addRecipie("Horse", {3:3 , 9:7, 20:8})
-    mango8.printRecipieNode()
-    print()
-
-
-    mango9 = Recipies.addRecipie("Pond", {3:3 , 9:7, 20:8})
-    mango9.printRecipieNode()
-    print()
-
-    mango10 = Recipies.addRecipie("Duck", {3:3 , 9:7, 20:8})
-    mango10.printRecipieNode()
-    print()
 
     r = Recipies.searchRecipie("Pasta")
     print(r.checkAvailability())
+
+
+
+    print(mango.getLowestDaysTillExperation())
+
+
 
 
     app = wx.App()
