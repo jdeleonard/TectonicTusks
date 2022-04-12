@@ -16,6 +16,9 @@ Architecture Diagram:
        -onInsertNewItem // opens frame for new item inserstion<br>
        -onPastFoodClick //<br>
        -onSaveForDay //<br>
-       -takeOrders // call the order screen<br>
+       -takeOrders // call the order screen<br>'
+       -UpdateButton // Updates database as new information is being input <br>
     =deleteFrame //this class controls the delete frame and function<br>
        
+Control Issues:
+  - Our design is reliant mainly on an application that interacts with and updates a database based off of information that is input into the application. The application itself is user controlled with manual operations. Everything operates sequentially as well, as the user ultimately decides when updated information will be sent to the database using the "UpdateButton" function and when it will save to a separate table in the database using the "onSaveforDay" function. There is no behind the scenes updating really taking place. 
