@@ -6,41 +6,51 @@ Architecture Diagram:
 
 
 
-  <h4>Class Structures (Java):</h4>
-    =MainForm //This is the primary class of our program<br>
-        methods:<br>
-       -deleteItem // Calls delete frames<br>
-       -OnQuit // close program<br>
-       -onSwitchPanels // switch current pannel<br>
-       -refreshGrid // destorys current pannel<br>
-       -onInsertNewItem // opens frame for new item inserstion<br>
-       -onPastFoodClick //<br>
-       -onSaveForDay //<br>
-       -takeOrders // call the order screen<br>'
-       -UpdateButton // Updates database as new information is being input <br>
-    =deleteFrame //this class controls the delete frame and function<br>
-    =OrderPanel //This is the class that controls the UI for ordering<br>
-       methods:<br>
-      -Initializer // Creates the ordering pannel <br>
-      -InitUI // Adds ordering buttons to the order panel menu and spaces them in rows of 3, buttons based on class Recipies <br>
-    =OrderButton //This class creates buttons for the OrderPanel<br>
-      -Initializer // Creates a button, sets instance variables to the Recipie the button is for, sets name, and calls updateStatus <br>
-      -OnButtonClicked // Activates on the press of the button, reduces items from the inventory for it's own recipie <br>
-      -updateStatus // Updates button appearance based on the inventory <br>
-    =OrderFrame //Creates a frame for the OrderPanel<br>
-      -Initializer // Creates a frame and calls InitUI<br>
-      -InitUI // Sets the OrderFrame pannel to OrderPanel, sets frame name, and centers the frame<br>
-    =Recipies //Data structure class (linked list) that contains name and a dictionary "recipie"<br>
-      -Initializer // Sets name, ingredients, and a link to the next recipie node<br>
-      -getLastRecipie // Returns the last recipie, mainly used for adding to the end of linked list<br>
-      -getNumRecipies // Returns the total amount of recipies n the linked list<br>
-      -addRecipie // Adds a recipie to the end of the linked list, returns added item<br>
-      -searchRecipie // Searches data structure for node that contains the inputted name, returns that node<br>
-      -checkIfPresent // Searches through all the recipies ingredients to make sure they're in the inventory<br>
-      -checkAvailability // Searches through all the items ingredients to maek sure there's enough of the ingredient to produce recipie<br>
-      -getLowestDaysTillExperation // Returns the amount of days till the expiration on the ingredient expiring the soonest<br>
+  <h4>Class Structures:</h4>
+    =MainForm //This is the primary class of our program
+        methods:
+       -deleteItem // Calls delete frames
+       -OnQuit // close program
+       -onSwitchPanels // switch current pannel
+       -refreshGrid // destorys current pannel
+       -onInsertNewItem // opens frame for new item inserstion
+       -onPastFoodClick //
+       -onSaveForDay //
+       -takeOrders // call the order screen
+       -UpdateButton // Updates database as new information is being input 
+    =deleteFrame //this class controls the delete frame and function
+    =OrderPanel //This is the class that controls the UI for ordering
+       methods:
+      -Initializer // Creates the ordering pannel 
+      -InitUI // Adds ordering buttons to the order panel menu and spaces them in rows of 3, buttons based on class Recipies 
+    =OrderButton //This class creates buttons for the OrderPanel
+      -Initializer // Creates a button, sets instance variables to the Recipie the button is for, sets name, and calls updateStatus
+      -OnButtonClicked // Activates on the press of the button, reduces items from the inventory for it's own recipie 
+      -updateStatus // Updates button appearance based on the inventory 
+    =OrderFrame //Creates a frame for the OrderPanel
+      -Initializer // Creates a frame and calls InitUI
+      -InitUI // Sets the OrderFrame pannel to OrderPanel, sets frame name, and centers the frame
+    =Recipies //Data structure class (linked list) that contains name and a dictionary "recipie"
+      -Initializer // Sets name, ingredients, and a link to the next recipie node
+      -getLastRecipie // Returns the last recipie, mainly used for adding to the end of linked list
+      -getNumRecipies // Returns the total amount of recipies n the linked list
+      -addRecipie // Adds a recipie to the end of the linked list, returns added item
+      -searchRecipie // Searches data structure for node that contains the inputted name, returns that node
+      -checkIfPresent // Searches through all the recipies ingredients to make sure they're in the inventory
+      -checkAvailability // Searches through all the items ingredients to maek sure there's enough of the ingredient to produce recipie
+      -getLowestDaysTillExperation // Returns the amount of days till the expiration on the ingredient expiring the soonest
       -printRecipieNode // Prints the nodes name and ingreidents, used for debugging
       -firstRecipie // global variable for recipies, starting the linked list
+
+
+General Layout:
+  - In general, this system has a system has a core background frame that every GUI item builds off of. That core frame is the Inventory Sheet Frame. This frame has the the whole menubar attached at the top, and from here, the user should be able to do anything they want/need to do. This is the highest level frame, and is the parent frame for every frame that will be generated based on the user's actions. So the Inventory Sheet frame is the parent of the "Insert" Frame, the "Past Food" Frame, the "Take an Order" Frame, etc.
+  - The program is run with the "main.py" file, and everything should be accessible from executing this file -- meaning that, usually, every frame will be created from "main.py".
+
+Database Layout:
+  - The database tables do not change in their core types and columns. The main inventory sheet is one table called "food", while the backups and saved inventory counts are in a second table called "past_food". The table schemas are found in the "db_setup.py" file.
+  - Any changes to inventory counts will only affect the "food" table, the "past_food" table is only for saving data and reading data, not modifying -- there are not (and shouldn't be) any ways to modify the data already in the "past_food" table.
+  - In the "past_food" table, the main way data is retrieved is based on the 'date' column -- which is the date that the counts are saved.
 
 
 Control Issues:
