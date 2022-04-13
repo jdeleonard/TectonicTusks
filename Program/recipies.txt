@@ -1,2 +1,2 @@
-Fruit Rice/9:0.5,4:1
-Chicken Rice/9:0.5
+Fruit Rice/{9: 0.5, 4: 1}
+Chicken Rice/{9: 0.5}
