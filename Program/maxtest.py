@@ -30,10 +30,7 @@ if __name__ == '__main__':
     print(r.checkAvailability())
 
 
-
     print(mango.getLowestDaysTillExperation())
-
-
 
 
     app = wx.App()

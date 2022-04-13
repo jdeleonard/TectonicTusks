@@ -12,6 +12,7 @@ from Frames import *
 from OrderPanel import *
 from PastFood import *
 from Recipies import *
+from InitializeRecipies import *
 
 
 from datetime import datetime
@@ -155,7 +156,8 @@ class deleteFrame(wx.Frame):
 
 if __name__ == '__main__':
 
-    # Add Food Items
+    # Add Food Items To Order Screen
+    InitializeRecipies.initializeRecipiesFromFile()
 
     app = wx.App()
 
