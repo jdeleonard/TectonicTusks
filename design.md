@@ -41,6 +41,16 @@ Architecture Diagram:
       -getLowestDaysTillExperation // Returns the amount of days till the expiration on the ingredient expiring the soonest
       -printRecipieNode // Prints the nodes name and ingreidents, used for debugging
       -firstRecipie // global variable for recipies, starting the linked list
+    =InventoryGrid // Grid that displays the main Inventory Sheet information
+      -Initializer // Creates the Inventory Sheet grid (default sheet when starting the application)
+      -shouldBeRed // Determines of a pulled expiration date is past the current time -- if so, tells the Grid to put that lettering in red
+    =PastFoodFrame // The frame that displays the past-saved food stored in the database
+      -Initializer // Creates the frame with the PastDatePanel showing
+      -displayPastGrid // The functions for showing the PastFoodPanel after date is selected
+    =PastFoodPanel // The panel that shows the grid for saved inventory from previous days
+    =PastDatePanel // The panel that allows the user to select a date for inventory retrieval
+    =PastFoodGrid // The grid that retrieves the information from the database and is applied to the PastFoodPanel based on inputted date
+    
 
 
 General Layout:
