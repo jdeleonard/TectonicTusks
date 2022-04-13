@@ -14,6 +14,15 @@ query = """CREATE table food (
                     )"""
 
 cursor.execute(query)
-
 connection.commit()
 
+query = """CREATE TABLE food (
+                    id INTEGER PRIMARY KEY,
+                    date DATE,
+                    food_id INTEGER,
+                    name VARCHAR(100),
+                    amount FLOAT(10)
+                    );"""
+
+cursor.execute(query)
+connection.commit()
