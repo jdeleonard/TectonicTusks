@@ -9,9 +9,6 @@ if __name__ == '__main__':
 
     InitializeRecipies.initializeRecipiesFromFile()
 
-
-    InitializeRecipies.saveRecipiesToFile()
-
     app = wx.App()
     ex = OrderFrame(None)
     ex.Show()

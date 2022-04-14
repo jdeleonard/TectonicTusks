@@ -5,7 +5,7 @@ import datetime
 import time
 from Recipies import *
 from globals import *
-
+from InitializeRecipies import *
 
 
 
@@ -110,5 +110,10 @@ class OrderFrame(wx.Frame):
 
     def InitUI(self):
         panel = OrderPanel(self)
+        self.Bind(wx.EVT_CLOSE, self.OnClose)
         self.SetTitle('Take Orders')
         self.Centre()
+
+    def OnClose(self, e):
+        InitializeRecipies.saveRecipiesToFile()
+        self.Destroy()
