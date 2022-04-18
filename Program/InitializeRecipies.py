@@ -51,3 +51,25 @@ class InitializeRecipies:
 
             currentRecipie = currentRecipie.next
             i += 1
+
+
+
+    def appendRecipieToFile(toAdd : str):
+
+        # open recipie file for writing
+        recipieFile = open("recipies.txt", "a")
+
+        recipieFile.write(toAdd)
+        recipieFile.write("\n")
+
+
+    def checkDictFormat(toCheck : str) -> bool:
+
+        temp = toCheck
+
+        temp = temp.replace(",","")
+        temp = temp.replace(" ","")
+        temp = temp.replace(":","")
+        temp = temp.replace("\n","")
+
+        return temp.isnumeric()
