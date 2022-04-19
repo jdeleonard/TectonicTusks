@@ -141,3 +141,10 @@ def getNumOfRowsPastFood(conn, date):
         for r in row:
             numRows = r
     return numRows
+
+def getAllPastFoodDates(conn):
+    cursor = conn.cursor()
+    query = "SELECT DISTINCT date FROM past_food"
+    cursor.execute(query)
+    all_db_dates = cursor.fetchall()
+    return all_db_dates

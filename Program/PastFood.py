@@ -37,19 +37,28 @@ class PastDatePanel(wx.Panel):
         wx.Panel.__init__(self, parent=parent)
 
         dateLabel = wx.StaticText(self, -1, "Date: ")
-        self.dateText = wx.TextCtrl(self, -1)
+
+        conn = opendb("food.db")
+        all_db_dates = getAllPastFoodDates(conn)
+        allDates = []
+        
+        for line in all_db_dates:
+            for item in line:
+                allDates.append(item)
+        
+
+        self.combo = wx.ComboBox(self, value="--Date--", choices=allDates )
 
         button = wx.Button(self, label="Get Inventory", size=(100,50))
         self.Bind(wx.EVT_BUTTON, self.displayPast, button)
 
         sizer = wx.FlexGridSizer(cols=2, hgap=6, vgap=6)
-        sizer.AddMany([dateLabel,self.dateText,button])
+        sizer.AddMany([dateLabel,self.combo,button])
 
         self.SetSizer(sizer)
 
     def displayPast(self, event):
-        date2 = self.dateText.GetValue()
-        self.dateText.SetValue("")
+        date2 = self.combo.GetValue()
         self.GetParent().displayPastGrid(date2)
 
 
