@@ -2,7 +2,8 @@ import sqlite3
 import time
 from datetime import date
 
-
+# Function to open the database connection
+# The name of the database file is passed
 def opendb(dbFile):
 
     conn = None
@@ -91,6 +92,7 @@ def checkID(conn, id):
 
 # Past Food Functions
 
+# Main called function to save the food into past_food
 def saveFoodForDay(conn):
     cursor = conn.cursor()
     query = "SELECT id, name, amount FROM food"
@@ -98,6 +100,8 @@ def saveFoodForDay(conn):
     rows = cursor.fetchall()
     insertFoodBackupsForDay(conn, rows)
 
+# Checks to make sure that the user hasn't already saved for the day
+# If the user has saved for the day -- delete all entries for the day and replace them
 def checkForAlreadyPost(conn):
     today = date.today()
     cursor = conn.cursor()
@@ -110,6 +114,7 @@ def checkForAlreadyPost(conn):
         cursor.execute(query)
         conn.commit()
 
+# Inserts the current items in the main 'food' table, and enters them into the 'past_food' -- as a way to save the contents
 def insertFoodBackupsForDay(conn, list):
     today = date.today()
     checkForAlreadyPost(conn)
@@ -124,6 +129,7 @@ def insertFoodBackupsForDay(conn, list):
         cursor.execute(query, (today, food_id, name, amount))
         conn.commit()
 
+# Returns all the saved contents of past_food for a specified date
 def getAllRowsPastFood(conn, date):
     cursor = conn.cursor()
     query = "SELECT food_id, name, amount, date FROM past_food WHERE date='{}'".format(date)
@@ -131,6 +137,7 @@ def getAllRowsPastFood(conn, date):
     rows = cursor.fetchall()
     return rows
 
+# Returns the number of rows that are saved for a specified date
 def getNumOfRowsPastFood(conn, date):
     cursor = conn.cursor()
     query = "SELECT COUNT(*) FROM past_food WHERE date='{}'".format(date)
@@ -141,3 +148,11 @@ def getNumOfRowsPastFood(conn, date):
         for r in row:
             numRows = r
     return numRows
+
+# Returns a tuple of all the unique dates in the past_food table
+def getAllPastFoodDates(conn):
+    cursor = conn.cursor()
+    query = "SELECT DISTINCT date FROM past_food"
+    cursor.execute(query)
+    all_db_dates = cursor.fetchall()
+    return all_db_dates
