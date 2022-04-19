@@ -47,6 +47,8 @@ class MainForm(wx.Frame):
 
         # Menubar Creation
         menubar = wx.MenuBar()
+
+        # 'File' Dropdwon in Menu
         fileMenu = wx.Menu()
 
         switchItem = fileMenu.Append(wx.ID_ANY, "Switch Panels", "")
