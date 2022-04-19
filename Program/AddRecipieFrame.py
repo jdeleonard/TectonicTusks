@@ -28,6 +28,8 @@ class AddRecipieFrame(wx.Frame):
         self.myPanel = AddRecipiePanel(self)
         self.Bind(wx.EVT_CLOSE, self.OnClose)
 
+
+    # activates on close of the window, makes sure user doesn't quit without saving unless wanted
     def OnClose(self, e):
         if self.isSaved() == True:
             self.Destroy()
@@ -40,14 +42,13 @@ class AddRecipieFrame(wx.Frame):
                 self.Destroy()
 
 
-    def OnSubmit():
-        print("HI")
+
+    # returns boolean if the information inputted hasn't been saved, to determine if a popup should deter user from quitting without saving
+    def isSaved(self) -> bool:
+        return self.myPanel.submitButton.gotSaved or ( (not self.myPanel.nameGrab.hasEdited) and (not self.myPanel.ingredientGrab.hasEdited) )
 
 
-    def isSaved(self):
-        return self.myPanel.submitButton.gotSaved
-
-
+    # submit button clicked, save inputted recipie
     def OnButtonClicked(self, e):
         print("Reached frame class")
 
@@ -145,6 +146,7 @@ class RecipieNameGrabber(wx.TextCtrl):
     def __init__(self, *args, **kw):
         super(RecipieNameGrabber, self).__init__(*args, **kw)
         self.savedName = False
+        self.hasEdited = False
         self.InitUI()
 
     def InitUI(self):
@@ -154,6 +156,7 @@ class RecipieNameGrabber(wx.TextCtrl):
     def OnType(self, event):
         name = self.getName()
         self.savedName = False
+        self.hasEdited = True
 
     def getName(self) -> str:
         return self.GetValue()
@@ -165,6 +168,7 @@ class IngredientsGrabber(wx.TextCtrl):
     def __init__(self, *args, **kw):
         super(IngredientsGrabber, self).__init__(*args, **kw)
         self.savedIngredients = False
+        self.hasEdited = False
         self.InitUI()
 
     def InitUI(self):
@@ -174,6 +178,7 @@ class IngredientsGrabber(wx.TextCtrl):
     def OnType(self, event):
         dict = self.getName()
         self.savedIngredients = False
+        self.hasEdited  = True
 
     def getName(self) -> str:
         return self.GetValue()
