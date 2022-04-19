@@ -13,6 +13,7 @@ from OrderPanel import *
 from PastFood import *
 from Recipies import *
 from InitializeRecipies import *
+from AddRecipieFrame import *
 
 
 from datetime import datetime
@@ -32,6 +33,9 @@ class MainForm(wx.Frame):
 
         self.order_panel = OrderPanel(self)
         self.order_panel.Hide()
+
+        self.add_recipie_panel  = AddRecipiePanel(self)
+        self.add_recipie_panel.Hide()
 
 
         self.sizer = wx.BoxSizer(wx.VERTICAL)
@@ -56,6 +60,9 @@ class MainForm(wx.Frame):
 
         orderItem = fileMenu.Append(wx.ID_ANY, "Take Orders", "")
         self.Bind(wx.EVT_MENU, self.takeOrders, orderItem)
+
+        addRecipieItem = fileMenu.Append(wx.ID_ANY, "Add Recipies", "")
+        self.Bind(wx.EVT_MENU, self.addRecipies, addRecipieItem)
 
         pastFoodItem = fileMenu.Append(wx.ID_ANY, "Past Inventory", "")
         self.Bind(wx.EVT_MENU, self.onPastFoodClick, pastFoodItem)
@@ -117,6 +124,7 @@ class MainForm(wx.Frame):
         insertFrame = InsertionFrame(self)
         insertFrame.Show()
 
+
     def onPastFoodClick(self, event):
         pastFoodFrame = PastFoodFrame(self)
         pastFoodFrame.Show()
@@ -131,6 +139,11 @@ class MainForm(wx.Frame):
     def takeOrders(self, event):
         orderFrame = OrderFrame(self)
         orderFrame.Show()
+
+
+    def addRecipies(self, event):
+        addFrame = AddRecipieFrame(self, "Add Recipies")
+        addFrame.Show()
 
 
 
