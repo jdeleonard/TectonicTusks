@@ -28,9 +28,12 @@
          - Example: A DeleteItemSQL function will accept an ID input for the column to be removed. Incorrect ID or invalid inputs would be entered to see the respose, which would be a  ID not found followed by no program action. If correct ID was input into the window the column with the matching ID would be removed from the database. Then the inventory page would be checked to make sure only the correct item's row was removed. 
          - Passing the function integers is the only option because that is how the database hold item IDs, by which the DeleteItemSql method accepts and locates itmes to be deleted.
 
-
 <strong> 2. System Testing </strong>
 
+  - Basic System Testing
+    - First test was making sure the program could open and close properly with all mehtods running as a complete program. The first round was opening and closing the program with no actions taken by the user. Example: The program was opened, ran for 3 seconds with no actions, and closed. This was the most basic and first test.
+    - Second test was making sure the program could execute actions correctly and be closed after actions where completed. The second round was opening the program and running various different methods, sometimes the same method repeatly, and once the actions where completed the program was closed and data based checked to make sure all actions where completed and program cloesd properly. Example: The program was opened and the add function, was called multiple times adding various random test items. After adding items was complete it was followed with the deleting of all newly added items. Continued to switching panel mulitple times, then the propgram was closed to make sure there was no issues. Example Issue: the delete function was found to remove items correctly but after being ran the method would continue on loop to look for user input, when the program was closed it would appear to be close but would continue running in the console, only closing the visible frame.  
+   
 <strong> 3. Acceptance Testing </strong>
 
   - 1.2 Adding/Deleting List Items
