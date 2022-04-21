@@ -22,7 +22,11 @@
         - These functions were mainly tested by entering manually passing information to the function with strings and seeing if the end database picture matched the information passed.
         - Example: A saveDaysInventory function would manually be passed a tuple containing rows of information corresponding to food rows in the main 'food' table of the database. We would then go look in the database file to see if all the rows and values match the values and ordering of the tuple correctly. If the information and values all lined up as expected and wanted, we knew that our function worked properly.
         - Passing the function strings and tuples is the best choice because that is how the database best communcations with python, through the passing of tuples in order to insert, delete, and modify information.
-
+       - In the case of a function whose purpose was to delete information:
+         - These functions were mainly tested by testing the acceptance of user input through additional pop up framed window, using the ID to locate and delete a row from the food database.
+         - First came testing the pop up window to make sure it would be called at the correct time of selection from the options menu, followed the window properly closing without leaving the program open to user input. With the acceptance of a proper ID the function would remove the row completely from the database.
+         - Example: A DeleteItemSQL function will accept an ID input for the column to be removed. Incorrect ID or invalid inputs would be entered to see the respose, which would be a  ID not found followed by no program action. If correct ID was input into the window the column with the matching ID would be removed from the database. Then the inventory page would be checked to make sure only the correct item's row was removed. 
+         - Passing the function integers is the only option because that is how the database hold item IDs, by which the DeleteItemSql method accepts and locates itmes to be deleted.
 
 
 <strong> 2. System Testing </strong>
