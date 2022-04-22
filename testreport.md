@@ -22,11 +22,23 @@
         - These functions were mainly tested by entering manually passing information to the function with strings and seeing if the end database picture matched the information passed.
         - Example: A saveDaysInventory function would manually be passed a tuple containing rows of information corresponding to food rows in the main 'food' table of the database. We would then go look in the database file to see if all the rows and values match the values and ordering of the tuple correctly. If the information and values all lined up as expected and wanted, we knew that our function worked properly.
         - Passing the function strings and tuples is the best choice because that is how the database best communcations with python, through the passing of tuples in order to insert, delete, and modify information.
-
-
+       - In the case of a function whose purpose was to delete information:
+         - These functions were mainly tested by testing the acceptance of user input through additional pop up framed window, using the ID to locate and delete a row from the food database.
+         - First came testing the pop up window to make sure it would be called at the correct time of selection from the options menu, followed the window properly closing without leaving the program open to user input. With the acceptance of a proper ID the function would remove the row completely from the database.
+         - Example: A DeleteItemSQL function will accept an ID input for the column to be removed. Incorrect ID or invalid inputs would be entered to see the respose, which would be a  ID not found followed by no program action. If correct ID was input into the window the column with the matching ID would be removed from the database. Then the inventory page would be checked to make sure only the correct item's row was removed. 
+         - Passing the function integers is the only option because that is how the database hold item IDs, by which the DeleteItemSql method accepts and locates itmes to be deleted.
+        
+        -In the case of a function whose purpose was to update information:
+          - These functions were mainly tested by manually entering user input into the table, then using function to upload to database, would compare information from database to that of the table. 
+          - First, came testing the Update button in the file menu and making sure it was reading user interaction. So anytime the update button was clicked, I would have a message generate in powershell saying "Button pressed."
+          - After, came testing the actual update feature to the database. I have several text features that indicate on the power shell to the user if it entered that loop. If so, the text would read, "connected to SQlite", followed by "Record updated successfully" and "Sqlite connection is closed," once the loop was exited. This was to make troubleshooting easier.
+          - In addition to the text displayed in power shell, after I ran through the function, I would open the database in SQlite to check and make sure the correct information had actually been updated. 
+          - Example: An UpdateButton function will read over the table created, then rewrite data into the food database to ensure all information stays up to date in SQlite. In the event the function is not working, an alternative loop saying "connection failed" will prompt the user to let them know an issue occured. 
+          - Manually passing and checking information is the only option because that ultimately shows that any new information is being sent to the database.
 
 <strong> 2. System Testing </strong>
 
+<<<<<<< HEAD
 
   - Recipie Addition testing
     - Components for recipies (food order panel, recipie addition panel) were both added into the larger system to be tested.
@@ -35,6 +47,12 @@
       - Navigating through panels, adding recipies through the recipie addition panel and then loading the order screen to make sure
       changes were saved.
 
+=======
+  - Basic System Testing
+    - First test was making sure the program could open and close properly with all mehtods running as a complete program. The first round was opening and closing the program with no actions taken by the user. Example: The program was opened, ran for 3 seconds with no actions, and closed. This was the most basic and first test.
+    - Second test was making sure the program could execute actions correctly and be closed after actions where completed. The second round was opening the program and running various different methods, sometimes the same method repeatly, and once the actions where completed the program was closed and data based checked to make sure all actions where completed and program cloesd properly. Example: The program was opened and the add function, was called multiple times adding various random test items. After adding items was complete it was followed with the deleting of all newly added items. Continued to switching panel mulitple times, then the propgram was closed to make sure there was no issues. Example Issue: the delete function was found to remove items correctly but after being ran the method would continue on loop to look for user input, when the program was closed it would appear to be close but would continue running in the console, only closing the visible frame.  
+   
+>>>>>>> 714c20725524c3443e5ad98e8c551a6ebfc23985
 <strong> 3. Acceptance Testing </strong>
 
   - 1.2 Adding/Deleting List Items
