@@ -27,6 +27,14 @@
 
 <strong> 2. System Testing </strong>
 
+
+  - Recipie Addition testing
+    - Components for recipies (food order panel, recipie addition panel) were both added into the larger system to be tested.
+      - Both components were introduced to the main system through the menu bar
+      - Components can speak to eachother through a file with saved information about the recipies
+      - Navigating through panels, adding recipies through the recipie addition panel and then loading the order screen to make sure
+      changes were saved.
+
 <strong> 3. Acceptance Testing </strong>
 
   - 1.2 Adding/Deleting List Items
@@ -75,4 +83,10 @@
       - After inspecting and querying the database directly, we found that the current day's inventory counts saved to another table to be saved and retrieved later, which caused us to determine that this Acceptance Test was 'Accepted'
 
   - 5.1 Food Entering
-    - 
+    - Accepted.
+    - This test had the following steps:
+      - Create a list of all possibilities of recipies to be added, including name changes, ingredient changes, and amount of ingredients
+      - Load pre saved data into the recipies.txt file to make sure that recipies got initialized properly from the file.
+      - Added different types of recipies from the add recipie screen.
+      - Verify the added recipies from the recipie screen saved properly in the file.
+      - Load the saved data from the recipie screen to make sure that saved data initialized properly.
