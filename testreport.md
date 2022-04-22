@@ -27,6 +27,14 @@
          - First came testing the pop up window to make sure it would be called at the correct time of selection from the options menu, followed the window properly closing without leaving the program open to user input. With the acceptance of a proper ID the function would remove the row completely from the database.
          - Example: A DeleteItemSQL function will accept an ID input for the column to be removed. Incorrect ID or invalid inputs would be entered to see the respose, which would be a  ID not found followed by no program action. If correct ID was input into the window the column with the matching ID would be removed from the database. Then the inventory page would be checked to make sure only the correct item's row was removed. 
          - Passing the function integers is the only option because that is how the database hold item IDs, by which the DeleteItemSql method accepts and locates itmes to be deleted.
+        
+        -In the case of a function whose purpose was to update information:
+          - These functions were mainly tested by manually entering user input into the table, then using function to upload to database, would compare information from database to that of the table. 
+          - First, came testing the Update button in the file menu and making sure it was reading user interaction. So anytime the update button was clicked, I would have a message generate in powershell saying "Button pressed."
+          - After, came testing the actual update feature to the database. I have several text features that indicate on the power shell to the user if it entered that loop. If so, the text would read, "connected to SQlite", followed by "Record updated successfully" and "Sqlite connection is closed," once the loop was exited. This was to make troubleshooting easier.
+          - In addition to the text displayed in power shell, after I ran through the function, I would open the database in SQlite to check and make sure the correct information had actually been updated. 
+          - Example: An UpdateButton function will read over the table created, then rewrite data into the food database to ensure all information stays up to date in SQlite. In the event the function is not working, an alternative loop saying "connection failed" will prompt the user to let them know an issue occured. 
+          - Manually passing and checking information is the only option because that ultimately shows that any new information is being sent to the database.
 
 <strong> 2. System Testing </strong>
 
