@@ -10,7 +10,7 @@ class PastFoodFrame(wx.Frame):
 
         self.date = ""
 
-        wx.Frame.__init__(self, parent, title = "Get Past Inventory", size = (700,700))
+        wx.Frame.__init__(self, parent, title = "Get Past Inventory", size = (425,300))
         self.past_date_panel = PastDatePanel(self)
 
         self.past_date_panel.Show()
@@ -29,6 +29,7 @@ class PastFoodFrame(wx.Frame):
         self.sizer.Add(self.past_food_panel, 1, wx.EXPAND)
         self.SetSizer(self.sizer)
         self.past_food_panel.Show()
+        self.Layout()
 
 
 
@@ -68,6 +69,11 @@ class PastFoodPanel(wx.Panel):
         wx.Panel.__init__(self, parent=parent)
         pastGrid = PastFoodGrid(self)
         sizer = wx.BoxSizer(wx.HORIZONTAL)
+        sizer = wx.BoxSizer(wx.VERTICAL)
+
+        label = wx.StaticText(self, -1, "TEST")
+
+        sizer.Add(label, 1)
         sizer.Add(pastGrid, 1)
         self.SetSizer(sizer)
 
