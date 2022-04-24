@@ -3,6 +3,12 @@ import wx.grid as wxgrid
 import datetime
 from db_functions import *
 
+def calculateChange(prevDay, curDay):
+    prevDay = float(prevDay)
+    curDay = float(curDay)
+    percent = ((prevDay - curDay) / prevDay) * 100
+    return float(f'{percent:.2f}')
+
 
 class PastFoodFrame(wx.Frame):
 
