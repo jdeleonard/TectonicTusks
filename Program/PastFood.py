@@ -3,6 +3,20 @@ import wx.grid as wxgrid
 import datetime
 from db_functions import *
 
+
+def calculateChange(prevDay, curDay):
+    prevDay  = float(prevDay)
+    curDay = float(curDay)
+
+    if (prevDay != 0):
+        percent = (((prevDay - curDay) / prevDay) * 100) * -1
+    elif (prevDay == 0 and curDay == 0):
+        percent = 0
+    else:
+        percent = 100
+
+    return float(f'{percent:.2f}')
+
 # This is the new frame that pops up when 'Past Inventory' is selected in the menu.
 class PastFoodFrame(wx.Frame):
 
@@ -29,6 +43,7 @@ class PastFoodFrame(wx.Frame):
         self.sizer.Add(self.past_food_panel, 1, wx.EXPAND)
         self.SetSizer(self.sizer)
         self.past_food_panel.Show()
+        self.Layout()
 
 
 # Panel that is the GUI for selecting which past date you want to look at
@@ -90,17 +105,54 @@ class PastFoodGrid(wxgrid.Grid):
             
             rows = getAllRowsPastFood(conn, date)
 
-            self.CreateGrid(numRows, 4)
+            self.CreateGrid(numRows, 5)
 
             self.SetColLabelValue(0, "ID")
             self.SetColLabelValue(1, "Food")
             self.SetColLabelValue(2, "Amount")
             self.SetColLabelValue(3, "Date")
+            self.SetColLabelValue(4, "% Difference - Then vs. Current Day")
+            self.SetColSize(4,220)
+
+
+            currentFood = getAllRows(conn)
+            comparedFood = getAllRowsPastFood(conn, date)
+
+            matching = []
+
+            for cur in currentFood:
+                for prev in comparedFood:
+                    if (cur[0] == prev[0]):
+                        matching.append(calculateChange(prev[2], cur[2]))
+
 
             # Populate the cells
             for r in range(numRows):
                 for c in range(4):
-                    self.SetCellValue(r,c, str(rows[r][c]))
+                    if (c < 4):
+                        self.SetCellValue(r, c, str(rows[r][c]))
+
+                    elif(len(matching) > 0 and r < len(matching)):
+                        percentNum = matching[r]
+
+                        if (percentNum > 0):
+                            percentString = "+" + str(percentNum) + "%"
+                            self.SetCellTextColour(r, c, "green")
+
+                        elif(percentNum == 0):
+                            percentString = "0.0%"
+
+                        else:
+                            percentString = str(percentNum) + "%"
+                            self.SetCellTextColour(r, c, "red")
+
+
+                        self.SetCellValue(r, c, percentString)
+
+                    else:
+                        self.SetCellTextColour(r, c, "red")
+                        self.SetCellValue(r, c, "-100%")
+
 
         else:
             errorLabel = wx.StaticText(self, -1, "No Posts found from {}".format(date))
