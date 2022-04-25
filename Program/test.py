@@ -108,11 +108,6 @@ class PanelTwo(wx.Panel):
 
         sizer = wx.FlexGridSizer(cols=2, hgap=6, vgap=6)
         sizer.AddMany([idLabel,self.idText,foodLabel,self.foodText,unitLabel,self.unitText,edateLabel,self.edateText, button])
-    
-
-
-
-
 
         self.SetSizer(sizer)
 
@@ -123,7 +118,9 @@ class MyForm(wx.Frame):
     def OnQuit(self, e):
         self.Close()
 
-
+    def deleteItem(self, event):
+        framer = deleteFrame()
+        self.Show()
     
     def onSwitchPanels(self, event):
         if self.panel_one.IsShown():
@@ -151,11 +148,7 @@ class MyForm(wx.Frame):
 
         numRows = getNumOfRows(conn)
 
-
-
         #updateRow(conn, 20, 20)
-
-
 
         # Refresh the Panel
         self.panel_one.Destroy()
@@ -204,6 +197,9 @@ class MyForm(wx.Frame):
         updateItem = fileMenu.Append(wx.ID_ANY, "Update Sheet", "")
         self.Bind(wx.EVT_MENU, self.updateDB, updateItem)
 
+        deleteItem = fileMenu.Append(wx.ID_ANY, "Delete Item", "")
+        self.Bind(wx.EVT_MENU, self.deleteItem, deleteItem)
+
         quitItem = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit')
         fileMenu.Append(quitItem)
         self.Bind(wx.EVT_MENU, self.OnQuit, quitItem)
@@ -214,40 +210,30 @@ class MyForm(wx.Frame):
         # self.SetSize((350, 250))
         # self.Centre()
 
-        
-        
-    
-
 
     def OnCloseMe(self, event):
         self.Close(True)
 
     def OnCloseWindow(self, event):
-        self.Destroy() 
+        self.Destroy()
 
-class testFrame(wx.Frame):
-    def __int__(self):
-        wx.Frame.__int__(self, parent = None, title = "Invenotry Sheet", size = (300,100))
-        self.test_panel = testPanel(self)
-
-class testPanel(wx.Panel):
-    def __init__(self, parent):
-        wx.Panel.__init__(self, parent = parent)
-        buttonDelete = wx.Button(self, label="Delete", size=(50,50))
-        my_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        my_sizer.Add(buttonDelete, 0, wx.ALL | wx.LEFT, 5)
-        self.setSizer(my_sizer)
-
-
-
-
-
+class deleteFrame(wx.Frame):
+    def __init__(self):
+        wx.Frame.__init__(self, parent=None, title="Delete Window", size=(300, 100))
+        panel = wx.Panel(self)
+        conn = opendb("food.db")
+        temp = wx.TextEntryDialog(None, "Enter Item ID to Delete:", "Delete Options", "Item ID")
+        if temp.ShowModal() == wx.ID_OK:
+            deleteID = temp.GetValue()
+            print(deleteID)
+            deleteItemSQL(conn, deleteID)
+            self.Close(True)
+        else:
+            self.Close(True)
 
 
 if __name__ == "__main__":
     app = wx.App()
     frame = MyForm()
     frame.Show()
-    frame2 = testFrame()
-    frame2.Show()
     app.MainLoop()
