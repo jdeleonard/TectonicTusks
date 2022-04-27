@@ -93,8 +93,8 @@ class Recipies:
             i += 1
 
         # not found, print a message and return None
-        print("NOT FOUND", name, "NOT FOUND")
-        print("Iterated", i, "times.")
+        # print("NOT FOUND", name, "NOT FOUND")
+        # print("Iterated", i, "times.")
 
         return None
 
@@ -169,6 +169,9 @@ class Recipies:
         print(self.name, " ingredients: ")
         for item in self.ingredients:
             print("Item: ", item, "  Amount: ", self.ingredients[item])
+
+
+
 
 
 

@@ -27,7 +27,8 @@ class InitializeRecipies:
             stringDict = brokenLine[1]
             dict = ast.literal_eval(stringDict)
 
-            Recipies.addRecipie(recipieName, dict)
+            if Recipies.searchRecipie(recipieName) == None :
+                Recipies.addRecipie(recipieName, dict)
 
     def saveRecipiesToFile():
 

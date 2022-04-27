@@ -13,6 +13,7 @@ class OrderPanel(wx.Panel):
 
     def __init__(self, *args, **kw):
         super(OrderPanel, self).__init__(*args, **kw)
+        InitializeRecipies.initializeRecipiesFromFile()
         self.InitUI()
 
     def InitUI(self):
