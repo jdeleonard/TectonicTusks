@@ -174,6 +174,9 @@ if __name__ == '__main__':
     # Add Food Items To Order Screen
     InitializeRecipies.initializeRecipiesFromFile()
 
+    # Validate Database File Exists
+    checkForDatabase()
+
     app = wx.App()
 
     frame = MainForm()
