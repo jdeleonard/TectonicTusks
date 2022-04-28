@@ -8,14 +8,21 @@ from globals import *
 from InitializeRecipies import *
 
 
-
+# Order panel which contains all the UI components
 class OrderPanel(wx.Panel):
 
+    # Initializer
     def __init__(self, *args, **kw):
         super(OrderPanel, self).__init__(*args, **kw)
+
+        # Get all the recipies from the file
         InitializeRecipies.initializeRecipiesFromFile()
+
+        # Initialize UI
         self.InitUI()
 
+
+    # Initializes all UI
     def InitUI(self):
 
         # Create a button for every recipie
@@ -102,19 +109,27 @@ class OrderButton(wx.Button):
 
 
 
-
+# wrapping panel or window for order panel
 class OrderFrame(wx.Frame):
 
+    # initializer
     def __init__(self, *args, **kw):
          super(OrderFrame, self).__init__(*args, **kw)
+
+         # initialize UI and properties
          self.InitUI()
 
+    # Initialize UI and properties
     def InitUI(self):
+        # load order panel
         panel = OrderPanel(self)
         self.Bind(wx.EVT_CLOSE, self.OnClose)
         self.SetTitle('Take Orders')
         self.Centre()
 
+    # activates on close of the window
     def OnClose(self, e):
+
+        # save recipies and close
         InitializeRecipies.saveRecipiesToFile()
         self.Destroy()

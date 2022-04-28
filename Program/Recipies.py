@@ -87,14 +87,13 @@ class Recipies:
         # loop through linked list (Recipie) and return once the name is found
         while i < Recipies.getNumRecipies():
 
+            # name found, return the node information
             if found.name == name:
                 return found
+
+            # continue the loop
             found = found.next
             i += 1
-
-        # not found, print a message and return None
-        # print("NOT FOUND", name, "NOT FOUND")
-        # print("Iterated", i, "times.")
 
         return None
 
@@ -145,9 +144,11 @@ class Recipies:
 
             conn = opendb("food.db")
 
+            # get amount information
             countNeeded = self.ingredients[item]
             countTotal = getInventoryAmount(conn, item)
 
+            # remove the proper amount of stock from the inventory
             updateRow(conn, item, countTotal - countNeeded)
 
 
@@ -155,7 +156,6 @@ class Recipies:
     def getLowestDaysTillExperation(self) -> int:
 
         today = date.today()
-
         dayDiff = [0]
         dayDiff.clear()
 
@@ -166,13 +166,19 @@ class Recipies:
             daydifference = (expireDate - today).days
             dayDiff.append(daydifference)
 
+        # information is present
         if dayDiff:
+
             lowestDifference = dayDiff[0]
 
+            # loop through the amount of day differences
             for diff in dayDiff:
+
+                # difference found is lower than difference set, update difference
                 if diff < lowestDifference:
                     lowestDifference = diff
 
+            # return the lowest difference between expiration dates
             return lowestDifference
 
         return -1
