@@ -138,6 +138,19 @@ class Recipies:
             return False
 
 
+    # Removes required amount of ingredients for recipie from the database, NOTE: can't be called if not enough items in inventory
+    def order(self):
+        # loop through all the recipie ingredients
+        for item in self.ingredients:
+
+            conn = opendb("food.db")
+
+            countNeeded = self.ingredients[item]
+            countTotal = getInventoryAmount(conn, item)
+
+            updateRow(conn, item, countTotal - countNeeded)
+
+
     # returns the amount of days till the expiration on the item expiring the soonest
     def getLowestDaysTillExperation(self) -> int:
 

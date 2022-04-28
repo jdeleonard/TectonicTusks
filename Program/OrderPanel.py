@@ -72,7 +72,7 @@ class OrderButton(wx.Button):
         # open database
         conn = opendb("food.db")
 
-        print(self.recipie.name)
+        self.recipie.order()
 
     # Updates button appearance based on inventory
     def updateStatus(self):
