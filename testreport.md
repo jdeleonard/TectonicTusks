@@ -38,21 +38,18 @@
 
 <strong> 2. System Testing </strong>
 
-<<<<<<< HEAD
 
-  - Recipie Addition testing
+  - Recipe Addition testing
     - Components for recipies (food order panel, recipie addition panel) were both added into the larger system to be tested.
       - Both components were introduced to the main system through the menu bar
       - Components can speak to eachother through a file with saved information about the recipies
       - Navigating through panels, adding recipies through the recipie addition panel and then loading the order screen to make sure
       changes were saved.
 
-=======
   - Basic System Testing
     - First test was making sure the program could open and close properly with all mehtods running as a complete program. The first round was opening and closing the program with no actions taken by the user. Example: The program was opened, ran for 3 seconds with no actions, and closed. This was the most basic and first test.
     - Second test was making sure the program could execute actions correctly and be closed after actions where completed. The second round was opening the program and running various different methods, sometimes the same method repeatly, and once the actions where completed the program was closed and data based checked to make sure all actions where completed and program cloesd properly. Example: The program was opened and the add function, was called multiple times adding various random test items. After adding items was complete it was followed with the deleting of all newly added items. Continued to switching panel mulitple times, then the propgram was closed to make sure there was no issues. Example Issue: the delete function was found to remove items correctly but after being ran the method would continue on loop to look for user input, when the program was closed it would appear to be close but would continue running in the console, only closing the visible frame.  
    
->>>>>>> 714c20725524c3443e5ad98e8c551a6ebfc23985
 <strong> 3. Acceptance Testing </strong>
 
   - 1.2 Adding/Deleting List Items
@@ -99,6 +96,21 @@
       - After items have been added, attempt to post/save the data for the day through the menubar button
       - We then went manually into the database file and, with the same sqlite3.exe program, inspected the 'past_food' table to see if today's entry was saved inside the table.
       - After inspecting and querying the database directly, we found that the current day's inventory counts saved to another table to be saved and retrieved later, which caused us to determine that this Acceptance Test was 'Accepted'
+
+  - 3.2 Look at Percents
+    - Accepted.
+    - This test had the following steps:
+      - Add multiple rows/items into the database as fake food items
+      - After the items have been added, save the inventory for the day
+      - Manually go into the database and change some of the amounts for the fake food items
+      - Go to the 'Past Inventory' tab and display the data that was saved earlier
+      - Find the displayed percent differences and compare if they are accurate to how much was changed.
+      - For example:
+        - Chicken was saved at 10 lbs
+        - Chicken was then changed to have 15 lbs
+        - We should have seen a 50% increase
+        - We indeed saw +50% displayed next to the chicken line item
+      - The correct percentages for each line item caused us to determine that his Acceptance Test was 'Accepted'
 
   - 5.1 Food Entering
     - Accepted.
