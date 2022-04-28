@@ -2,44 +2,6 @@ import sqlite3
 import time
 from datetime import date
 
-
-def checkForDatabase():
-    try:
-        conn = opendb("food.db")
-        query = "SELECT 1 FROM food"
-        cursor = conn.cursor()
-        cursor.execute(query)
-        print("SUCCESS")
-    except:
-        createTables()
-        print("FAILURE")
-
-
-def createTables():
-    conn = opendb("food.db")
-    cursor = conn.cursor()
-    query = """CREATE TABLE food (
-                                  id INTEGER PRIMARY KEY,
-                                  name VARCHAR(100),
-                                  amount FLOAT(10),
-                                  unit VARCHAR(50),
-                                  expires DATE
-                                 );"""
-    cursor.execute(query)
-    conn.commit()
-
-    query = """CREATE TABLE past_food (
-                                       id INTEGER PRIMARY KEY,
-                                       date DATE,
-                                       food_id INTEGER,
-                                       name VARCHAR(100),
-                                       amount FLOAT(10)
-                                      );"""
-    cursor.execute(query)
-    conn.commit()
-                                
-    
-
 # Function to open the database connection
 # The name of the database file is passed
 def opendb(dbFile):
@@ -129,13 +91,13 @@ def checkID(conn, id):
 
 
 # Update Table information Functions
-def UpdateButton(conn,idText,amountText):
+def UpdateButton(conn):
     cursor = conn.cursor()
     query = """UPDATE food SET amount = ? WHERE id = ?"""  # working line
     #Trows = cursor.fetchall()
-    id = idText # working
-    amount = amountText  #working
-    val = (amountText, idText) #working
+    id = 1 # working
+    amount = 200  #working
+    val = (amount, id) #working
     cursor.execute(query, val) #working
     conn.commit()
 
