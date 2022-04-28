@@ -91,13 +91,13 @@ def checkID(conn, id):
 
 
 # Update Table information Functions
-def UpdateButton(conn,idText,amountText):
+def UpdateButton(conn):
     cursor = conn.cursor()
     query = """UPDATE food SET amount = ? WHERE id = ?"""  # working line
     #Trows = cursor.fetchall()
-    id = idText # working
-    amount = amountText  #working
-    val = (amountText, idText) #working
+    id = 1 # working
+    amount = 200  #working
+    val = (amount, id) #working
     cursor.execute(query, val) #working
     conn.commit()
 
