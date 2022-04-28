@@ -73,16 +73,13 @@ class MainForm(wx.Frame):
         fileMenu.Append(quitItem)
         self.Bind(wx.EVT_MENU, self.OnQuit, quitItem)
 
+        updateItem = fileMenu.Append(wx.ID_ANY, "update Database", "")
+        self.Bind(wx.EVT_MENU, self.onUpdateButton, updateItem)
+
 
 
         # 'Save' Dropdown in Menu
         saveMenu = wx.Menu()
-
-        #updateItem = saveMenu.Append(wx.ID_ANY, "Save", "")
-        #self.Bind(wx.EVT_MENU, self.onUpdateButton, updateItem)
-
-        updateItem = saveMenu.Append(wx.ID_ANY, "Update Item Amount", "")
-        self.Bind(wx.EVT_MENU, self.onUpdateButton, updateItem)
 
         saveForDayItem = saveMenu.Append(wx.ID_ANY, "Post Inventory for Day", "")
         self.Bind(wx.EVT_MENU, self.onSaveForDay, saveForDayItem)
@@ -96,10 +93,6 @@ class MainForm(wx.Frame):
 
     def deleteItem(self, event):
         framer = deleteFrame(self)
-        self.Show()
-
-    def onUpdateButton(self, event):
-        framer = updateFrame(self)
         self.Show()
 
     def OnQuit(self, e):
@@ -146,10 +139,10 @@ class MainForm(wx.Frame):
         conn = opendb("food.db")
         saveFoodForDay(conn)
 
-    #def onUpdateButton(self, event):
-     #   print("Button Read")
-      #  conn = opendb("food.db")
-       # UpdateButton(conn)
+    def onUpdateButton(self, event):
+        print("Button Read")
+        conn = opendb("food.db")
+        UpdateButton(conn)
         
         
 
@@ -184,24 +177,6 @@ class deleteFrame(wx.Frame):
         else:
             self.Close(True)
 
-class updateFrame(wx.Frame):
-    def __init__(self, parent):
-        wx.Frame.__init__(self, parent=parent, title="Update Window", size=(300, 100))
-        panel = wx.Panel(self)
-        conn = opendb("food.db")
-        temp = wx.TextEntryDialog(None, "Enter Update Item ID", "Update Options", "Item ID")
-        #temp1 = wx.TextEntryDialog(None, "Enter new Amount", "Update", "Amount")
-        if temp.ShowModal() == wx.ID_OK:
-            updateID = temp.GetValue()
-            temp1 = wx.TextEntryDialog(None, "Enter new Amount", "Update", "Amount")
-            if temp1.ShowModal() == wx.ID_OK:
-                amount = temp1.GetValue()
-                UpdateButton(conn, updateID, amount)
-                self.Close(True)
-                self.GetParent().refreshGrid()
-
-        else:
-            self.Close(True)
 
 
 
@@ -209,9 +184,6 @@ if __name__ == '__main__':
 
     # Add Food Items To Order Screen
     InitializeRecipies.initializeRecipiesFromFile()
-
-    # Validate Database File Exists
-    checkForDatabase()
 
     app = wx.App()
 

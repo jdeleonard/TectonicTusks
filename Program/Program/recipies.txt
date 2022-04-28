@@ -1,0 +1,3 @@
+Fruit Rice/{9: 0.5, 4: 1}
+Chicken Rice/{9: 0.5}
+Ham/{1: 1, 2: 2, 3: 3}
