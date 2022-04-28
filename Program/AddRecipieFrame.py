@@ -2,6 +2,7 @@ import wx
 import ast
 from Recipies import *
 from InitializeRecipies import *
+from MessageFrame import *
 
 # window wrapper for recipie frame
 class AddRecipieFrame(wx.Frame):
@@ -45,7 +46,11 @@ class AddRecipieFrame(wx.Frame):
 
             # first attempt at closing, prompt user
             if self.closeCount != 1:
-                print("Recipie not saved, to discard close again")
+
+                # prompt user about quitting without saving
+                prompt = MessageWindow(None, title='Warning')
+                prompt.Show()
+
                 self.closeCount += 1
 
             # second attempt at closing, close
