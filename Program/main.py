@@ -98,6 +98,7 @@ class MainForm(wx.Frame):
         framer = deleteFrame(self)
         self.Show()
 
+    # Function that calls updateFrame to open
     def onUpdateButton(self, event):
         framer = updateFrame(self)
         self.Show()
@@ -146,10 +147,6 @@ class MainForm(wx.Frame):
         conn = opendb("food.db")
         saveFoodForDay(conn)
 
-    #def onUpdateButton(self, event):
-     #   print("Button Read")
-      #  conn = opendb("food.db")
-       # UpdateButton(conn)
         
         
 
@@ -184,6 +181,13 @@ class deleteFrame(wx.Frame):
         else:
             self.Close(True)
 
+# shows error message for incorrect IDs
+def ShowMessage(self):
+    wx.MessageBox('Not valid ID', 'Error', 
+        wx.OK | wx.ICON_INFORMATION)
+
+# Update Frame Panel that prompts user to enter unique ID and amounts/expiration dates to be edited then calls UpdateButton function
+# to edit database with user inputed values
 class updateFrame(wx.Frame):
     def __init__(self, parent):
         wx.Frame.__init__(self, parent=parent, title="Update Window", size=(300, 100))
@@ -193,16 +197,22 @@ class updateFrame(wx.Frame):
         #temp1 = wx.TextEntryDialog(None, "Enter new Amount", "Update", "Amount")
         if temp.ShowModal() == wx.ID_OK:
             updateID = temp.GetValue()
-            temp1 = wx.TextEntryDialog(None, "Enter new Amount", "Update", "Amount")
-            if temp1.ShowModal() == wx.ID_OK:
-                amount = temp1.GetValue()
-                UpdateButton(conn, updateID, amount)
-                self.Close(True)
-                self.GetParent().refreshGrid()
-
+            check = checkID(conn, updateID)
+            if checkID(conn, updateID) == 1:
+                temp1 = wx.TextEntryDialog(None, "Enter new Amount", "Update", "New Amount")
+                if temp1.ShowModal() == wx.ID_OK:
+                    amount = temp1.GetValue()
+                    temp2 = wx.TextEntryDialog(None, "Enter Expiration date changes:", "Exp. Update","New Expiration Date" )
+                    if temp2.ShowModal() == wx.ID_OK:
+                        exp = temp2.GetValue()
+                        UpdateButton(conn, updateID, amount, exp)
+                        self.Close(True)
+                        self.GetParent().refreshGrid()
+            else:
+                print("error")
+                ShowMessage(self)
         else:
             self.Close(True)
-
 
 
 if __name__ == '__main__':
