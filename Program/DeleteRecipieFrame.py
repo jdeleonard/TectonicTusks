@@ -102,7 +102,7 @@ class DeleteFrame(wx.Frame):
         # load order panel
         panel = DeleteRecipiePanel(self)
         self.Bind(wx.EVT_CLOSE, self.OnClose)
-        self.SetTitle('Take Orders')
+        self.SetTitle('Delete Recipe')
         self.Centre()
 
     # activates on close of the window
