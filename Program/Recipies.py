@@ -97,6 +97,43 @@ class Recipies:
 
         return None
 
+    # deletes recipie inputted in data Structure
+    def deleteRecipie(recipieToDelete):
+
+        # set up loop variables
+        beginning = firstRecipie
+        before = firstRecipie
+        after = firstRecipie.next
+        i = 0
+
+        # node to delete is first node
+        if before.name == recipieToDelete.name:
+            return True
+
+        # loop through linked list (Recipie)
+        while i < Recipies.getNumRecipies():
+
+            # recipie to delete is found
+            if after.name == recipieToDelete.name:
+
+                # recipie to delete is last node
+                if after.next == None:
+                    before.next = None
+
+                # recipie to delete isn't last node
+                else:
+                    before.next = after.next
+
+
+                break
+
+            # loop through the rest of the nodes
+            i += 1
+            before = before.next
+            if after != None:
+                after = after.next
+
+        return False
 
     # Searches through all the items ingredients to make sure they're in the inventory
     def checkIfPresent(self):

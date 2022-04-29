@@ -14,6 +14,7 @@ from PastFood import *
 from Recipies import *
 from InitializeRecipies import *
 from AddRecipieFrame import *
+from DeleteRecipieFrame import *
 
 
 from datetime import datetime
@@ -36,6 +37,9 @@ class MainForm(wx.Frame):
 
         self.add_recipie_panel  = AddRecipiePanel(self)
         self.add_recipie_panel.Hide()
+
+        self.delete_recipie_panel = DeleteRecipiePanel(self)
+        self.delete_recipie_panel.Hide()
 
 
         self.sizer = wx.BoxSizer(wx.VERTICAL)
@@ -68,6 +72,9 @@ class MainForm(wx.Frame):
 
         pastFoodItem = fileMenu.Append(wx.ID_ANY, "Past Inventory", "")
         self.Bind(wx.EVT_MENU, self.onPastFoodClick, pastFoodItem)
+
+        deleteRecipie = fileMenu.Append(wx.ID_ANY, "Delete Recipies", "")
+        self.Bind(wx.EVT_MENU, self.onDeleteRecipieClick, deleteRecipie)
 
         quitItem = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit')
         fileMenu.Append(quitItem)
@@ -143,12 +150,19 @@ class MainForm(wx.Frame):
         pastFoodFrame = PastFoodFrame(self)
         pastFoodFrame.Show()
 
+
+    def onDeleteRecipieClick(self, event):
+        deleteRecipieFrame = DeleteFrame(self)
+        deleteRecipieFrame.Show()
+
+
+
     def onSaveForDay(self, event):
         conn = opendb("food.db")
         saveFoodForDay(conn)
 
-        
-        
+
+
 
 
 
@@ -183,7 +197,7 @@ class deleteFrame(wx.Frame):
 
 # shows error message for incorrect IDs
 def ShowMessage(self):
-    wx.MessageBox('Not valid ID', 'Error', 
+    wx.MessageBox('Not valid ID', 'Error',
         wx.OK | wx.ICON_INFORMATION)
 
 # Update Frame Panel that prompts user to enter unique ID and amounts/expiration dates to be edited then calls UpdateButton function
@@ -216,6 +230,8 @@ class updateFrame(wx.Frame):
 
 
 if __name__ == '__main__':
+
+    addedFirstRecipie = False
 
     # Add Food Items To Order Screen
     InitializeRecipies.initializeRecipiesFromFile()
