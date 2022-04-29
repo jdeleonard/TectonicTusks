@@ -48,7 +48,7 @@ class AddRecipieFrame(wx.Frame):
             if self.closeCount != 1:
 
                 # prompt user about quitting without saving
-                prompt = MessageWindow(None, title='Warning')
+                prompt = MessageWindow(None, title='Warning', name="Tried to quit without adding recipie, close again to discard")
                 prompt.Show()
 
                 self.closeCount += 1
@@ -161,7 +161,8 @@ class AddRecipiePanel(wx.Panel):
 
         # format ins't correct
         else: #TODO fix
-            print("Formatting error, follow given format")
+            prompt = MessageWindow(None, title='Warning', name="Follow the given input format.")
+            prompt.Show()
 
 
 # text box that is for the recipie name
