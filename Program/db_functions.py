@@ -128,27 +128,19 @@ def checkID(conn, id):
     return bool(cursor.fetchone()[0])
 
 
-# Update Table information Functions
-def UpdateButton(conn,idText,amountText):
+# Function that updates database by detecting the inputed unique ID and inputing new expiration date and quantity
+def UpdateButton(conn,idText,amountText, dateText):
     cursor = conn.cursor()
-    query = """UPDATE food SET amount = ? WHERE id = ?"""  # working line
-    #Trows = cursor.fetchall()
+    query = """UPDATE food SET amount = ? , expires = ? WHERE id = ?"""  # working line
     id = idText # working
-    amount = amountText  #working
-    val = (amountText, idText) #working
+    amount = amountText
+    expires = dateText  #working
+    val = (amountText, dateText, idText) #working
     cursor.execute(query, val) #working
     conn.commit()
 
-    #for rows in Trows:
-#        id = 1 #rows[0]
- #       name = 'Let' #rows[1]
-  #      amount = 99 #rows[2]
-   #     #unit = 'lb' #rows[3]
-    #    cursor.execute(query, (name, amount, unit, id))
-     #   conn.commit()
 
 
-    #conn.commit()
 
 
 # Past Food Functions
