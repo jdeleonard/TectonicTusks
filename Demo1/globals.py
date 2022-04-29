@@ -1,1 +1,0 @@
-TABLE_COLS = 5
