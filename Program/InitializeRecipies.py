@@ -1,9 +1,21 @@
 import ast
 from Recipies import *
+from os.path import exists
 
 class InitializeRecipies:
 
+
+    def validateFoodFile():
+        # file doesn't exist
+        if not exists("recipies.txt"):
+            # create file
+            recipieFile = open("recipies.txt", "x")
+
+
     def initializeRecipiesFromFile():
+
+        # make sure file is present
+        InitializeRecipies.validateFoodFile()
 
         # open the recipie file for reading
         recipieFile = open("recipies.txt", "r")
@@ -32,6 +44,9 @@ class InitializeRecipies:
 
     def saveRecipiesToFile():
 
+        # make sure file is present
+        InitializeRecipies.validateFoodFile()
+
         # open recipie file for writing
         recipieFile = open("recipies.txt", "w")
 
@@ -48,7 +63,7 @@ class InitializeRecipies:
             fileFormatedString = name + "/" + ingredientsString
             recipieFile.write(fileFormatedString)
             recipieFile.write("\n")
-            print(fileFormatedString)
+            #print(fileFormatedString)
 
             currentRecipie = currentRecipie.next
             i += 1
@@ -56,6 +71,9 @@ class InitializeRecipies:
 
 
     def appendRecipieToFile(toAdd : str):
+
+        # make sure file is present
+        InitializeRecipies.validateFoodFile()
 
         # open recipie file for writing
         recipieFile = open("recipies.txt", "a")

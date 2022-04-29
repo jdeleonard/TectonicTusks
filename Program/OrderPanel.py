@@ -129,7 +129,6 @@ class OrderFrame(wx.Frame):
 
     # activates on close of the window
     def OnClose(self, e):
-
         # save recipies and close
         InitializeRecipies.saveRecipiesToFile()
         self.Destroy()
