@@ -57,46 +57,50 @@ class MainForm(wx.Frame):
 
         switchItem = fileMenu.Append(wx.ID_ANY, "Switch Panels", "")
         self.Bind(wx.EVT_MENU, self.onSwitchPanels, switchItem)
-
-        insertItem = fileMenu.Append(wx.ID_ANY, "Insert New Item", "")
-        self.Bind(wx.EVT_MENU, self.onInsertNewItem, insertItem)
-
-        deleteItem = fileMenu.Append(wx.ID_ANY, "Delete Item", "")
-        self.Bind(wx.EVT_MENU, self.deleteItem, deleteItem)
-
-        orderItem = fileMenu.Append(wx.ID_ANY, "Take Orders", "")
-        self.Bind(wx.EVT_MENU, self.takeOrders, orderItem)
-
-        addRecipieItem = fileMenu.Append(wx.ID_ANY, "Add Recipies", "")
-        self.Bind(wx.EVT_MENU, self.addRecipies, addRecipieItem)
-
+        
         pastFoodItem = fileMenu.Append(wx.ID_ANY, "Past Inventory", "")
         self.Bind(wx.EVT_MENU, self.onPastFoodClick, pastFoodItem)
-
-        deleteRecipie = fileMenu.Append(wx.ID_ANY, "Delete Recipies", "")
-        self.Bind(wx.EVT_MENU, self.onDeleteRecipieClick, deleteRecipie)
 
         quitItem = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit')
         fileMenu.Append(quitItem)
         self.Bind(wx.EVT_MENU, self.OnQuit, quitItem)
 
 
+        # 'Update' Dropdown in Menu
+        updateMenu = wx.Menu()
+
+        insertItem = updateMenu.Append(wx.ID_ANY, "Insert New Item", "")
+        self.Bind(wx.EVT_MENU, self.onInsertNewItem, insertItem)
+
+        deleteItem = updateMenu.Append(wx.ID_ANY, "Delete Item", "")
+        self.Bind(wx.EVT_MENU, self.deleteItem, deleteItem)
+
+        updateItem = updateMenu.Append(wx.ID_ANY, "Update Item Amount", "")
+        self.Bind(wx.EVT_MENU, self.onUpdateButton, updateItem)
+
+
+        # 'Order' Dropdown in Menu
+        orderMenu = wx.Menu()
+
+        orderItem = orderMenu.Append(wx.ID_ANY, "Take Orders", "")
+        self.Bind(wx.EVT_MENU, self.takeOrders, orderItem)
+
+        addRecipieItem = orderMenu.Append(wx.ID_ANY, "Add Recipies", "")
+        self.Bind(wx.EVT_MENU, self.addRecipies, addRecipieItem)
+
+        deleteRecipie = orderMenu.Append(wx.ID_ANY, "Delete Recipies", "")
+        self.Bind(wx.EVT_MENU, self.onDeleteRecipieClick, deleteRecipie)
+        
 
         # 'Save' Dropdown in Menu
         saveMenu = wx.Menu()
 
-        #updateItem = saveMenu.Append(wx.ID_ANY, "Save", "")
-        #self.Bind(wx.EVT_MENU, self.onUpdateButton, updateItem)
-
-        updateItem = saveMenu.Append(wx.ID_ANY, "Update Item Amount", "")
-        self.Bind(wx.EVT_MENU, self.onUpdateButton, updateItem)
-
         saveForDayItem = saveMenu.Append(wx.ID_ANY, "Post Inventory for Day", "")
         self.Bind(wx.EVT_MENU, self.onSaveForDay, saveForDayItem)
 
-
-
         menubar.Append(fileMenu, '&File')
+        menubar.Append(updateMenu, '&Update')
+        menubar.Append(orderMenu, '&Order')
         menubar.Append(saveMenu, '&Save')
 
         self.SetMenuBar(menubar)
@@ -156,14 +160,9 @@ class MainForm(wx.Frame):
         deleteRecipieFrame.Show()
 
 
-
     def onSaveForDay(self, event):
         conn = opendb("food.db")
         saveFoodForDay(conn)
-
-
-
-
 
 
     # Activates from clicking "Take Orders" on the file menu... file->Take Orders
@@ -179,54 +178,6 @@ class MainForm(wx.Frame):
 
 
 
-
-class deleteFrame(wx.Frame):
-    def __init__(self, parent):
-        wx.Frame.__init__(self, parent=parent, title="Delete Window", size=(300, 100))
-        panel = wx.Panel(self)
-        conn = opendb("food.db")
-        temp = wx.TextEntryDialog(None, "Enter Item ID to Delete:", "Delete Options", "Item ID")
-        if temp.ShowModal() == wx.ID_OK:
-            deleteID = temp.GetValue()
-            deleteItemSQL(conn, deleteID)
-            self.Close(True)
-            self.GetParent().refreshGrid()
-
-        else:
-            self.Close(True)
-
-# shows error message for incorrect IDs
-def ShowMessage(self):
-    wx.MessageBox('Not valid ID', 'Error',
-        wx.OK | wx.ICON_INFORMATION)
-
-# Update Frame Panel that prompts user to enter unique ID and amounts/expiration dates to be edited then calls UpdateButton function
-# to edit database with user inputed values
-class updateFrame(wx.Frame):
-    def __init__(self, parent):
-        wx.Frame.__init__(self, parent=parent, title="Update Window", size=(300, 100))
-        panel = wx.Panel(self)
-        conn = opendb("food.db")
-        temp = wx.TextEntryDialog(None, "Enter Update Item ID", "Update Options", "Item ID")
-        #temp1 = wx.TextEntryDialog(None, "Enter new Amount", "Update", "Amount")
-        if temp.ShowModal() == wx.ID_OK:
-            updateID = temp.GetValue()
-            check = checkID(conn, updateID)
-            if checkID(conn, updateID) == 1:
-                temp1 = wx.TextEntryDialog(None, "Enter new Amount", "Update", "New Amount")
-                if temp1.ShowModal() == wx.ID_OK:
-                    amount = temp1.GetValue()
-                    temp2 = wx.TextEntryDialog(None, "Enter Expiration date changes:", "Exp. Update","New Expiration Date" )
-                    if temp2.ShowModal() == wx.ID_OK:
-                        exp = temp2.GetValue()
-                        UpdateButton(conn, updateID, amount, exp)
-                        self.Close(True)
-                        self.GetParent().refreshGrid()
-            else:
-                print("error")
-                ShowMessage(self)
-        else:
-            self.Close(True)
 
 
 if __name__ == '__main__':

@@ -9,10 +9,10 @@ def checkForDatabase():
         query = "SELECT 1 FROM food"
         cursor = conn.cursor()
         cursor.execute(query)
-        print("SUCCESS")
+        
     except:
         createTables()
-        print("FAILURE")
+        
 
 
 def createTables():
