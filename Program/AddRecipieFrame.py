@@ -263,7 +263,7 @@ class SubmitButton(wx.Button):
 def main():
 
     app = wx.App()
-    ex = AddRecipieFrame(None, title='Add Recipie')
+    ex = AddRecipieFrame(None, title='Add Recipe')
     ex.Show()
     app.MainLoop()
 
