@@ -16,9 +16,12 @@ Architecture Diagram:
        -onInsertNewItem // opens frame for new item inserstion
        -onPastFoodClick //
        -onSaveForDay //
+       -onUpdateButton // call update screen
        -takeOrders // call the order screen
        -UpdateButton // Updates database as new information is being input 
     =deleteFrame //this class controls the delete frame and function
+    =UpdateFrame // this class controls the update frame and function
+      - showMessage // displays error message when called
     =OrderPanel //This is the class that controls the UI for ordering
        methods:
       -Initializer // Creates the ordering pannel 
