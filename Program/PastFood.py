@@ -115,14 +115,26 @@ class PastFoodGrid(wxgrid.Grid):
             self.SetColSize(4,220)
 
 
-            readOnlyAttr = wxgrid.GridCellAttr()
-            readOnlyAttr.SetReadOnly(True)
+            readOnlyAttr0 = wxgrid.GridCellAttr()
+            readOnlyAttr0.SetReadOnly(True)
 
-            self.SetColAttr(0, readOnlyAttr)
-            self.SetColAttr(1, readOnlyAttr)
-            self.SetColAttr(2, readOnlyAttr)
-            self.SetColAttr(3, readOnlyAttr)
-            self.SetColAttr(4, readOnlyAttr)
+            readOnlyAttr1 = wxgrid.GridCellAttr()
+            readOnlyAttr1.SetReadOnly(True)
+
+            readOnlyAttr2 = wxgrid.GridCellAttr()
+            readOnlyAttr2.SetReadOnly(True)
+
+            readOnlyAttr3 = wxgrid.GridCellAttr()
+            readOnlyAttr3.SetReadOnly(True)
+
+            readOnlyAttr4 = wxgrid.GridCellAttr()
+            readOnlyAttr4.SetReadOnly(True)
+
+            self.SetColAttr(0, readOnlyAttr0)
+            self.SetColAttr(1, readOnlyAttr1)
+            self.SetColAttr(2, readOnlyAttr2)
+            self.SetColAttr(3, readOnlyAttr3)
+            self.SetColAttr(4, readOnlyAttr4)
 
 
 
