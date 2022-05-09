@@ -1,14 +1,14 @@
 # TectonicTusks
 https://jdeleonard.github.io/TectonicTusks/
 
-Project Name: R-Inventory
-CS371-Group Project-Restaurant Inventory 
-This program will be designed for a food inventory system.
-  Systems:
-    On hand inventory,
-    Expected vs Actual inventory use,
-    Customer UI for ordering,
-    Data Base to keep track of inventory.
+Project Name: R-Inventory <br>
+CS371-Group Project-Restaurant Inventory <br>
+This program will be designed for a food inventory system. <br>
+  Systems:<br>
+    On hand inventory,<br>
+    Expected vs Actual inventory use,<br>
+    Customer UI for ordering,<br>
+    Data Base to keep track of inventory.<br>
     
     
 <strong>Instructions:</strong>
