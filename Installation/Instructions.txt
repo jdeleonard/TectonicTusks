@@ -6,8 +6,9 @@ Windows:
 2) Open PowerShell can install wxPython with the command:
      pip install wxpython
 
-3) Run the .py program script in Powershell with the command:
-     python .\program_name.py
+3) Run the .py program script in Powershell with the commands:
+     cd Programs
+     python main.py
 
 
 Mac:
@@ -17,10 +18,13 @@ Mac:
 2) Open up Terminal and make sure your python3 version is Python 3.9 with the command:
      python3 --version
 
+   If your python verion is not Python 3.9, you need to install and run the program with the Python 3.9
+
 3) Install wxPython with the terminal command:
      pip install wxpython
 
-4) Run the program with the terminal command:
-     python3 ./program_name.py 
+4) Run the program with the terminal commands:
+     cd Program
+     python3 main.py 
 
 

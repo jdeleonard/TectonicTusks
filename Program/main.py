@@ -55,9 +55,6 @@ class MainForm(wx.Frame):
         # 'File' Dropdwon in Menu
         fileMenu = wx.Menu()
 
-        switchItem = fileMenu.Append(wx.ID_ANY, "Switch Panels", "")
-        self.Bind(wx.EVT_MENU, self.onSwitchPanels, switchItem)
-
         pastFoodItem = fileMenu.Append(wx.ID_ANY, "Past Inventory", "")
         self.Bind(wx.EVT_MENU, self.onPastFoodClick, pastFoodItem)
 
