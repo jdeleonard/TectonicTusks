@@ -109,7 +109,7 @@ Acceptance Test: We will manually calculate some deviation percentages, and then
 
 ----------------
 
-4.1: Multiple Updates <br><br>
+4.1: Multiple Updates <strong>*Future Plan/Update*</strong><br><br>
 
 As a restaurant owner, I want multiple employees to be able to update the system at once so inventory is reflecting as accurately as possible. <br><br>
 
